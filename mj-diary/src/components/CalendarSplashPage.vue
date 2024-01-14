@@ -1,9 +1,7 @@
 <template>
-	<div class="splash"
-	@click=""
-	>
-		<h3>MANGO DIARY</h3>
-		<p>Touch to Start</p>
+	<div class="splash" @click="this.$store.commit('increaseStep')">
+		<img class="splash-logo" src="../../public/splashLogo.png" />
+		<p to="/main">Touch to Start</p>
 	</div>
 </template>
 
@@ -17,9 +15,14 @@ export default {
 .splash {
 	width: 100%;
 	min-height: 100svh;
+	margin: 0;
+
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
+}
+.splash-logo {
+	width: 156px;
 }
 </style>
