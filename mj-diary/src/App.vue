@@ -1,46 +1,43 @@
 <template>
-  <div v-if="step != 0" class="header">
+  <div v-if="this.$store.state.step != 0" class="header">
     <ul class="header-button-left">
-      <li v-if="step == 2">Prev</li>
+      <li v-if="this.$store.state.step == 2" @click="this.$store.commit('decreaseStep')">Prev</li>
     </ul>
     <img src="../public/mood/happiness.png" class="logo" />
     <ul class="header-button-right">
-      <li v-if="step == 2">Submit</li>
+      <li v-if="this.$store.state.step == 2" @click="this.$store.commit('resetStep')">Submit</li>
     </ul>
   </div>
 
-  <CalendarSplash v-if="step == 0" />
+  <SplashPage v-if="this.$store.state.step == 0" />
+  <MainPage v-if="this.$store.state.step == 1" />
+  <WritePage v-if="this.$store.state.step == 2" />
+  <StatisticsPage v-if="this.$store.state.step == 3" />
 
-  <CalendarMain v-if="step == 1" />
-
-  <CalendarWrite v-if="step == 2" />
-
-  <CalendarStatistics v-if="step == 3" />
-
-  <div class="footer" v-if="step != 0">
+  <div class="footer" v-if="this.$store.state.step != 0">
     <div class="statistics-button">
-      <p>통계</p>
+      <p v-if="this.$store.state.step != 3" @click="this.$store.state.step = 3">통계</p>
+      <p v-else @click="this.$store.commit('resetStep')">HOME</p>
     </div>
   </div>
 </template>
 
 <script>
-import CalendarSplash from './components/CalendarSplashPage.vue'
-import CalendarMain from './components/CalendarMainPage.vue'
-import CalendarWrite from './components/CalendarWritePage.vue'
-import CalendarStatistics from './components/CalendarStatisticsPage.vue'
+import SplashPage from './components/CalendarSplashPage.vue'
+import MainPage from './components/CalendarMainPage.vue'
+import WritePage from './components/CalendarWritePage.vue'
+import StatisticsPage from './components/CalendarStatisticsPage.vue'
 
 export default {
   name: 'app',
   components: {
-    CalendarSplash,
-    CalendarMain,
-    CalendarWrite,
-    CalendarStatistics
+    SplashPage,
+    MainPage,
+    WritePage,
+    StatisticsPage
   },
   data() {
     return {
-      step: 2,
     }
   }
 }
@@ -97,7 +94,7 @@ ul {
   border-radius: 50%;
   background-color: rgb(255, 248, 156);
   margin: auto;
-  box-shadow: 0px 0px 5px gray;
+  box-shadow: 0px 5px 15px gray;
   
   display: flex;
   align-items: center;
@@ -108,10 +105,13 @@ ul {
   bottom: 30px;
 }
 #app {
+  width: 100%;
   box-sizing: border-box;
   margin-top: 60px;
-  width: 100%;
   margin: auto;
   position: relative;
+}
+body {
+  margin: 0 8px 0 8px
 }
 </style>
