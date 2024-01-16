@@ -1,8 +1,8 @@
 <template>
-	<div class="splash" @click="this.$store.commit('increaseStep')">
+	<router-link class="splash" to="/main">
 		<img class="splash-logo" src="/splashLogo.png" />
-		<p to="/main">Touch to Start</p>
-	</div>
+		<p class="splash-phrases">Touch to Start</p>
+	</router-link>
 </template>
 
 <script>
@@ -16,7 +16,8 @@ export default {
 	width: 100%;
 	min-height: 100svh;
 	margin: 0;
-
+	text-decoration-line: none;
+	color: black;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

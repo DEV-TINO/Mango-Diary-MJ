@@ -17,15 +17,15 @@
 				</tr>
 			</thead>
 			<tbody class="date-body">
-				<tr class="date-row" @click="this.$store.commit('increaseStep')" v-for="index, i in dates" :key="i">
-					<td class="date-block" v-for="date, secIndex in index" :key="secIndex">{{ date }}</td>
+				<tr v-for="index, i in dates" :key="i">
+					<router-link class="date-row" to="/write/1">
+						<td class="date-block" v-for="date, secIndex in index" :key="secIndex">{{ date }}</td>
+					</router-link>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div class="write-button">
-		<p @click="this.$store.commit('increaseStep')">글쓰기</p>
-	</div>
+	<router-link class="write-button" to="/write/1">write</router-link>
 </template>
 
 <script>
@@ -47,7 +47,6 @@ export default {
 .select-month {
 	margin-top: 8px;
 	margin-bottom: 16px;
-
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -72,18 +71,18 @@ export default {
 .week-block {
 	width: 100%;	
 	margin-bottom: 16px;
-
 	display: flex;
 	justify-content: space-around;
 }
 .week {
 	width: 42px;
 	background-color: rgb(255, 226, 64);
-
 	display: flex;
 	justify-content: center;
 }
 .date-row {
+	text-decoration-line: none;
+	color: black;
 	display: flex;
 	justify-content: space-around;
 }
@@ -95,7 +94,6 @@ export default {
 	height: 72px;
 	background-color: rgb(255, 226, 64);
 	margin-bottom: 16px;
-
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
@@ -105,9 +103,11 @@ export default {
   height: 64px;
 	background-color: rgb(255, 248, 156);
 	border-radius: 50%;
+	border: none;
   box-shadow: 0px 5px 15px gray;
   cursor: pointer;
-
+	text-decoration-line: none;
+	color: black;
 	display: flex;
 	justify-content: center;
 	align-items: center;

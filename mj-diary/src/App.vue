@@ -1,45 +1,29 @@
 <template>
-  <div v-if="this.$store.state.step != 0" class="header">
+  <div v-if="$route.path != `/`" class="header">
     <ul class="header-button-left">
-      <li v-if="this.$store.state.step == 2" @click="this.$store.commit('decreaseStep')">Prev</li>
+      <router-link v-if="$route.path == `/write`" to="/main">
+        <li>Prev</li>
+      </router-link>
     </ul>
     <img src="/mood/happiness.png" class="logo" />
     <ul class="header-button-right">
-      <li v-if="this.$store.state.step == 2" @click="this.$store.commit('resetStep')">Submit</li>
+      <router-link v-if="$route.path == `/write`" to="/main">
+        <li>Submit</li>
+      </router-link>
     </ul>
   </div>
 
-  <SplashPage v-if="this.$store.state.step == 0" />
-  <MainPage v-if="this.$store.state.step == 1" />
-  <WritePage v-if="this.$store.state.step == 2" />
-  <StatisticsPage v-if="this.$store.state.step == 3" />
+  <router-view />
 
-  <div class="footer" v-if="this.$store.state.step != 0">
-    <div class="statistics-button">
-      <p v-if="this.$store.state.step != 3" @click="this.$store.state.step = 3">통계</p>
-      <p v-else @click="this.$store.commit('resetStep')">HOME</p>
-    </div>
+  <div class="footer" v-if="$route.path != `/`">
+    <router-link class="footer-button" v-if="$route.path != `/statistics`" to="/statistics">통계</router-link>
+    <router-link class="footer-button" v-if="$route.path == `/statistics`" to="/main">HOME</router-link>
   </div>
 </template>
 
 <script>
-import SplashPage from './components/CalendarSplashPage.vue'
-import MainPage from './components/CalendarMainPage.vue'
-import WritePage from './components/CalendarWritePage.vue'
-import StatisticsPage from './components/CalendarStatisticsPage.vue'
-
 export default {
-  name: 'app',
-  components: {
-    SplashPage,
-    MainPage,
-    WritePage,
-    StatisticsPage
-  },
-  data() {
-    return {
-    }
-  }
+  name: 'app'
 }
 </script>
 
@@ -49,7 +33,6 @@ export default {
   background-color: white;
   padding-top: 8px;
   padding-bottom: 16px;
-  
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -83,19 +66,19 @@ ul {
   width: 100%;
   height: 60px;
   background-color: rgb(255, 255, 152);
-
   position: fixed;
   left: 0;
   bottom: 0;
 }
-.statistics-button {
+.footer-button {
   width: 64px;
   height: 64px;
   border-radius: 50%;
   background-color: rgb(255, 248, 156);
   margin: auto;
   box-shadow: 0px 5px 15px gray;
-  
+  text-decoration-line: none;
+  color: black;
   display: flex;
   align-items: center;
   justify-content: center;
