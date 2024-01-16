@@ -53,7 +53,6 @@ img {
   height: 291px;
   padding: 16px;
   background-color: rgb(255, 255, 152);
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +61,6 @@ img {
 textarea {
   width: 95%;
   height: 85%;
-
   border: none;
 }
 .today {
@@ -74,7 +72,6 @@ textarea {
   padding-bottom: 32px;
   border-style: dotted;
   cursor: pointer;
-
   display: flex;
   flex-direction: column;
   align-items: center;

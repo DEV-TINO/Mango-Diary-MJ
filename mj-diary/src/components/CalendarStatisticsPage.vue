@@ -45,7 +45,6 @@ export default {
 <style>
 .rank-top {
 	margin-bottom: 40px;
-
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -65,7 +64,6 @@ export default {
 }
 .ranking-block {
 	width: 100%;
-
 	display: flex;
 	flex-direction: column;
 }
