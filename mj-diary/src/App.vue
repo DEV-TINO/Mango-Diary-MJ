@@ -1,16 +1,12 @@
 <template>
   <div v-if="$route.path != `/`" class="header">
-    <ul class="header-button-left">
-      <router-link v-if="$route.path == `/write`" to="/main">
-        <li>Prev</li>
-      </router-link>
-    </ul>
+    <router-link class="header-button-left" v-if="$route.path == `/write/1`" to="/main">
+      Prev
+    </router-link>
     <img src="/mood/happiness.png" class="logo" />
-    <ul class="header-button-right">
-      <router-link v-if="$route.path == `/write`" to="/main">
-        <li>Submit</li>
-      </router-link>
-    </ul>
+    <router-link class="header-button-right" v-if="$route.path == `/write/1`" to="/main">
+      Submit
+    </router-link>
   </div>
 
   <router-view />
@@ -45,6 +41,8 @@ export default {
   padding-left: 20px;
   cursor: pointer;
   margin-top: 10px;
+  list-style-type: none;
+  text-decoration-line: none;
 }
 .header-button-right {
   color: black;
@@ -53,10 +51,8 @@ export default {
   cursor: pointer;
   margin-top: 10px;
   padding-right: 20px;
-}
-ul {
-  padding: 5px;
   list-style-type: none;
+  text-decoration-line: none;
 }
 .logo {
   width: 80px;

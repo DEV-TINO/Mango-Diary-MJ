@@ -68,8 +68,7 @@ textarea {
   margin-bottom: 16px;
 }
 .input-block {
-  padding-top: 32px;
-  padding-bottom: 32px;
+  padding: 32px;
   border-style: dotted;
   cursor: pointer;
   display: flex;
