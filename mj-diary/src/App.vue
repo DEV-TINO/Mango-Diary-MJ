@@ -3,7 +3,7 @@
     <ul class="header-button-left">
       <li v-if="this.$store.state.step == 2" @click="this.$store.commit('decreaseStep')">Prev</li>
     </ul>
-    <img src="../public/mood/happiness.png" class="logo" />
+    <img src="/mood/happiness.png" class="logo" />
     <ul class="header-button-right">
       <li v-if="this.$store.state.step == 2" @click="this.$store.commit('resetStep')">Submit</li>
     </ul>

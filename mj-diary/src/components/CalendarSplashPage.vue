@@ -1,6 +1,6 @@
 <template>
 	<div class="splash" @click="this.$store.commit('increaseStep')">
-		<img class="splash-logo" src="../../public/splashLogo.png" />
+		<img class="splash-logo" src="/splashLogo.png" />
 		<p to="/main">Touch to Start</p>
 	</div>
 </template>

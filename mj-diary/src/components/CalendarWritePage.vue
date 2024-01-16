@@ -3,11 +3,11 @@
     <div class="select-mood">
       <h3>오늘의 기분은?</h3>
       <div class="mood-list">
-        <img src="../../public//mood/happiness.png" />
-        <img src="../../public//mood/angry.png" />
-        <img src="../../public//mood/depressed.png" />
-        <img src="../../public//mood/sad.png" />
-        <img src="../../public//mood/happy.png" />
+        <img src="/mood/happiness.png" />
+        <img src="/mood/angry.png" />
+        <img src="/mood/depressed.png" />
+        <img src="/mood/sad.png" />
+        <img src="/mood/happy.png" />
       </div>
     </div>
     <div>

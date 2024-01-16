@@ -6,7 +6,7 @@
 		</div>
 	</div>
 	<div class="rank-top">
-		<img class="top-mood" src="../../public//mood/happy.png" />
+		<img class="top-mood" src="/mood/happy.png" />
 		<div class="top-comment">
 			<p class="comment">기쁜 일이 많았나 봐요</p>
 			<h3 class="comment">기쁨 16개</h3>
@@ -15,22 +15,22 @@
 	<div class="ranking-block">
 		<div class="ranking">
 			<h3>2위</h3>
-			<img class="mood" src="../../public/mood/happiness.png" />
+			<img class="mood" src="/mood/happiness.png" />
 			<p>7개</p>
 		</div>
 		<div class="ranking">
 			<h3>3위</h3>
-			<img class="mood" src="../../public/mood/depressed.png" />
+			<img class="mood" src="/mood/depressed.png" />
 			<p>5개</p>
 		</div>
 		<div class="ranking">
 			<h3>4위</h3>
-			<img class="mood" src="../../public/mood/sad.png" />
+			<img class="mood" src="/mood/sad.png" />
 			<p>2개</p>
 		</div>
 		<div class="ranking">
 			<h3>5위</h3>
-			<img class="mood" src="../../public/mood/angry.png" />
+			<img class="mood" src="/mood/angry.png" />
 			<p>1개</p>
 		</div>
 	</div>
