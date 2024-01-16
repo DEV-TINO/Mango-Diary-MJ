@@ -1,79 +1,79 @@
 <template>
-	<div class="select-month">
-		<div class="month-block">
-			<div class="year">2024</div>
-			<div class="month">01</div>
-		</div>
-	</div>
-	<div class="rank-top">
-		<img class="top-mood" src="/mood/happy.png" />
-		<div class="top-comment">
-			<p class="comment">기쁜 일이 많았나 봐요</p>
-			<h3 class="comment">기쁨 16개</h3>
-		</div>
-	</div>
-	<div class="ranking-block">
-		<div class="ranking">
-			<h3>2위</h3>
-			<img class="mood" src="/mood/happiness.png" />
-			<p>7개</p>
-		</div>
-		<div class="ranking">
-			<h3>3위</h3>
-			<img class="mood" src="/mood/depressed.png" />
-			<p>5개</p>
-		</div>
-		<div class="ranking">
-			<h3>4위</h3>
-			<img class="mood" src="/mood/sad.png" />
-			<p>2개</p>
-		</div>
-		<div class="ranking">
-			<h3>5위</h3>
-			<img class="mood" src="/mood/angry.png" />
-			<p>1개</p>
-		</div>
-	</div>
+  <div class="select-month">
+    <div class="month-block">
+      <div class="year">2024</div>
+      <div class="month">01</div>
+    </div>
+  </div>
+  <div class="rank-top">
+    <img class="top-mood" src="/mood/happy.png" />
+    <div class="top-comment">
+      <p class="comment">기쁜 일이 많았나 봐요</p>
+      <h3 class="comment">기쁨 16개</h3>
+    </div>
+  </div>
+  <div class="ranking-block">
+    <div class="ranking">
+      <h3>2위</h3>
+      <img class="mood" src="/mood/happiness.png" />
+      <p>7개</p>
+    </div>
+    <div class="ranking">
+      <h3>3위</h3>
+      <img class="mood" src="/mood/depressed.png" />
+      <p>5개</p>
+    </div>
+    <div class="ranking">
+      <h3>4위</h3>
+      <img class="mood" src="/mood/sad.png" />
+      <p>2개</p>
+    </div>
+    <div class="ranking">
+      <h3>5위</h3>
+      <img class="mood" src="/mood/angry.png" />
+      <p>1개</p>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-	
+  
 }
 </script>
 
 <style>
 .rank-top {
-	margin-bottom: 40px;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 .top-mood {
-	width: 123px;
-	margin-right: 16px;
+  width: 123px;
+  margin-right: 16px;
 }
 .top-comment {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .comment {
-	margin: 0;
+  margin: 0;
 }
 .ranking-block {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .ranking {
-	margin-bottom: 40px;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .mood {
-	width: 88px;
+  width: 88px;
 }
 </style>
