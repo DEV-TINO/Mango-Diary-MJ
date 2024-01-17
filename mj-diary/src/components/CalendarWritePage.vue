@@ -14,7 +14,7 @@
       <h3>오늘은 무슨 일이 있었나요?</h3>
       <div class="write-block">
         <div class="today">2024년 1월 13일</div>
-        <textarea></textarea>
+        <textarea class="text-write"></textarea>
       </div>
     </div>
     <div>
@@ -58,10 +58,11 @@ img {
   align-items: center;
   justify-content: center;
 }
-textarea {
+.text-write {
   width: 95%;
   height: 85%;
   border: none;
+  resize: none;
 }
 .today {
   margin: 0;
