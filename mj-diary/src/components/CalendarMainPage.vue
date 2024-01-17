@@ -17,10 +17,10 @@
         </tr>
       </thead>
       <tbody class="date-body">
-        <tr v-for="index, i in dates" :key="i">
-          <router-link class="date-row" to="/write/1">
-            <td class="date-block" v-for="date, secIndex in index" :key="secIndex">{{ date }}</td>
-          </router-link>
+        <tr class="date-row" v-for="index, i in dates" :key="i">
+          <td class="date-block" v-for="date, secIndex in index" :key="secIndex">
+            <router-link class="date" to="/write/1">{{ date }}</router-link>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -37,7 +37,8 @@ export default {
               [8, 9, 10, 11, 12, 13, 14],
               [15, 16, 17, 18, 19, 20, 21],
               [22, 23, 24, 25, 26, 27, 28],
-              [29, 30, 31, , , , ,]]
+              [29, 30, 31, '', '', '', '']],
+      
     }
   }
 }
@@ -81,7 +82,6 @@ export default {
   justify-content: center;
 }
 .date-row {
-  text-decoration-line: none;
   color: black;
   display: flex;
   justify-content: space-around;
@@ -92,11 +92,14 @@ export default {
 .date-block {
   width: 42px;
   height: 72px;
-  background-color: rgb(255, 226, 64);
   margin-bottom: 16px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+}
+.date {
+  text-decoration-line: none;
+  color: black
 }
 .write-button {
   width: 64px;
