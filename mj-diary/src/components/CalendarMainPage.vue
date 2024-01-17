@@ -1,7 +1,7 @@
 <template>
   <div class="select-date">
     <div class="select-month">
-    <div class="last-month">&lt</div>
+    <div class="last-month">{{ this.$store.state.prev }}</div>
     <div class="month-block">
       <div class="year">2024</div>
       <div class="month">01</div>
