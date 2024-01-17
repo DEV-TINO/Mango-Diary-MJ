@@ -1,24 +1,24 @@
 <template>
   <div class="select-date">
     <div class="select-month">
-    <div class="last-month">{{ this.$store.state.prev }}</div>
+    <div class="last-month" @click="reloadCalendar(-1)">{{ this.$store.state.prev }}</div>
     <div class="month-block">
-      <div class="year">2024</div>
-      <div class="month">01</div>
+      <div class="year">{{ this.$store.state.year }}</div>
+      <div class="month">{{ this.$store.state.month + 1 }}</div>
     </div>
-    <div class="next-month">></div>
+    <div class="next-month" @click="reloadCalendar(1)">></div>
   </div>
   </div>
   <div class="calendar-block">
     <table class="calendar">
       <thead class="week-block">
-        <tr class="week" v-for="week, index in weeks" :key="index">
+        <tr class="week" v-for="week, index in this.$store.state.weeks" :key="index">
           <th>{{ week }}</th>
         </tr>
       </thead>
       <tbody class="date-body">
-        <tr class="date-row" v-for="index, i in dates" :key="i">
-          <td class="date-block" v-for="date, secIndex in index" :key="secIndex">
+        <tr class="date-row" v-for="index, i in this.$store.state.days" :key="i">
+          <td class="date-block" v-for="date in index" :key="date">
             <router-link class="date" to="/write/1">{{ date }}</router-link>
           </td>
         </tr>
@@ -30,15 +30,13 @@
 
 <script>
 export default {
-  data() {
-    return {
-      weeks: ['MON',	'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
-      dates: [[1, 2, 3, 4, 5, 6, 7],
-              [8, 9, 10, 11, 12, 13, 14],
-              [15, 16, 17, 18, 19, 20, 21],
-              [22, 23, 24, 25, 26, 27, 28],
-              [29, 30, 31, '', '', '', '']],
-      
+  mounted() {
+    this.$store.commit('loadCalendar');
+  },
+  methods: {
+    reloadCalendar(v) {
+      this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + v, 1));
+      this.$store.commit('loadCalendar');
     }
   }
 }
@@ -52,6 +50,12 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+.last-month {
+  cursor: pointer;
+}
+.next-month {
+  cursor: pointer;
 }
 .month-block {
   display: flex;
