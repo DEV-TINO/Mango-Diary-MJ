@@ -1,10 +1,10 @@
 <template>
   <div v-if="$route.path != `/`" class="header">
-    <router-link class="header-button-left" v-if="$route.path == `/write/1`" to="/main">
+    <router-link class="header-button-left" v-if="$route.path == `/write/${this.$store.state.writeDate}`" to="/main">
       Prev
     </router-link>
     <img src="/mood/happiness.png" class="logo" />
-    <router-link class="header-button-right" v-if="$route.path == `/write/1`" to="/main">
+    <router-link class="header-button-right" v-if="$route.path == `/write/${this.$store.state.writeDate}`" to="/main">
       Submit
     </router-link>
   </div>
