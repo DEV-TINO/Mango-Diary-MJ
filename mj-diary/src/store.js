@@ -14,7 +14,8 @@ const store = createStore({
       endDay: 0,
       basicDays: 0,
       emptyDays: 0,
-      combinedDays: 0
+      combinedDays: 0,
+      imageUrl: ''
     }
   },
   mutations: {
@@ -38,8 +39,11 @@ const store = createStore({
       }
 
       for(let i = 0; i < state.endDay + state.startDay; i += 7) {
-        state.days.push(state.combinedDays.slice(i, i+7));
+        state.days.push(state.combinedDays.slice(i, i + 7));
       }
+    },
+    setImageUrl(state, url) {
+      state.imageUrl = url;
     }
   }
 })
