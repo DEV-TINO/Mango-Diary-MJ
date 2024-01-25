@@ -7,7 +7,7 @@ const store = createStore({
       weeks: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
       year: 0,
       month: 0,
-      date: 0,
+      day: 0,
       today: new Date(),
       days: [],
       startDay: 0,
@@ -15,7 +15,10 @@ const store = createStore({
       basicDays: 0,
       emptyDays: 0,
       combinedDays: 0,
-      imageUrl: ''
+      imageUrl: '',
+      wirteMonth: '',
+      writeDay: '',
+      writeDate: ''
     }
   },
   mutations: {
@@ -23,7 +26,7 @@ const store = createStore({
       state.days = [];
       state.year = state.today.getFullYear();
       state.month = state.today.getMonth();
-      state.date = state.today.getDate();
+      state.day = state.today.getDate();
       state.startDay = new Date(state.year, state.month, 1).getDay();
       state.endDay = new Date(state.year, state.month + 1, 0).getDate();
       state.basicDays = Array.from({ length: state.endDay }, (v, i) => i + 1);

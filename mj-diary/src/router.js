@@ -8,7 +8,7 @@ const routes = [
     path: "/main",
     component: () => import("./components/CalendarMainPage.vue")
   }, {
-    path: "/write/:date",
+    path: "/write/:writeDate",
     component: () => import("./components/CalendarWritePage.vue")
   }, {
     path: "/statistics",

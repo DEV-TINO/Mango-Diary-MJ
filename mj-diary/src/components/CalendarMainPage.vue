@@ -16,16 +16,16 @@
           <th>{{ week }}</th>
         </tr>
       </thead>
-      <tbody class="date-body">
-        <tr class="date-row" v-for="index, i in this.$store.state.days" :key="i">
-          <td class="date-block" v-for="date in index" :key="date">
-            <router-link class="date" to="/write/1">{{ date }}</router-link>
+      <tbody class="day-body">
+        <tr class="day-row" v-for="index, i in this.$store.state.days" :key="i">
+          <td class="day-block" v-for="day in index" :key="day">
+            <div class="day" @click="goWrite(this.$store.state.year, this.$store.state.month, day)">{{ day }}</div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <router-link class="write-button" to="/write/1">write</router-link>
+  <div class="write-button" @click="goWrite(this.$store.state.year, this.$store.state.month, this.$store.state.day)">write</div>
 </template>
 
 <script>
@@ -37,6 +37,12 @@ export default {
     reloadCalendar(v) {
       this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + v, 1));
       this.$store.commit('loadCalendar');
+    },
+    goWrite(year, month, day) {
+      this.$store.state.wirteMonth = String(month + 1).padStart(2, "0");
+      this.$store.state.writeDay = String(day).padStart(2, "0");
+      this.$store.state.writeDate = String(year) + this.$store.state.wirteMonth + this.$store.state.writeDay;
+      this.$router.push(`/write/${this.$store.state.writeDate}`)
     }
   }
 }
@@ -85,15 +91,15 @@ export default {
   display: flex;
   justify-content: center;
 }
-.date-row {
+.day-row {
   color: black;
   display: flex;
   justify-content: space-around;
 }
-.date-body {
+.day-body {
   width: 100%;
 }
-.date-block {
+.day-block {
   width: 42px;
   height: 50px;
   margin-bottom: 16px;
@@ -101,7 +107,7 @@ export default {
   align-items: flex-start;
   justify-content: center;
 }
-.date {
+.day {
   text-decoration-line: none;
   color: black
 }
