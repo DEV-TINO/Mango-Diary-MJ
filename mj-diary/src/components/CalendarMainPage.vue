@@ -44,8 +44,8 @@ export default {
 
 <style>
 .select-month {
-  margin-top: 8px;
-  margin-bottom: 16px;
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -95,7 +95,7 @@ export default {
 }
 .date-block {
   width: 42px;
-  height: 72px;
+  height: 50px;
   margin-bottom: 16px;
   display: flex;
   align-items: flex-start;
@@ -119,7 +119,7 @@ export default {
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 104px;
+  bottom: 7.5rem;
   right: 32px;
 }
 </style>
