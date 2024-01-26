@@ -18,7 +18,8 @@ const store = createStore({
       imageUrl: '',
       wirteMonth: '',
       writeDay: '',
-      writeDate: ''
+      writeDate: '',
+      todayMood: '',
     }
   },
   mutations: {
@@ -47,6 +48,9 @@ const store = createStore({
     },
     setImageUrl(state, url) {
       state.imageUrl = url;
+    },
+    setMood(state, mood) {
+      state.todayMood = mood;
     }
   }
 })

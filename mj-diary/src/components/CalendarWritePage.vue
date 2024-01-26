@@ -3,11 +3,25 @@
     <div class="select-mood">
       <h3>오늘의 기분은?</h3>
       <div class="mood-list">
-        <img src="/mood/happiness.png" />
-        <img src="/mood/angry.png" />
-        <img src="/mood/depressed.png" />
-        <img src="/mood/sad.png" />
-        <img src="/mood/happy.png" />
+        <img 
+        :class="{'colorMood': this.$store.state.todayMood == 'happiness', 'greyMood': this.$store.state.todayMood != 'happiness'}" 
+        @click="this.$store.commit('setMood', 'happiness')"
+        src="/mood/happiness.png" />
+        <img :class="{'colorMood': this.$store.state.todayMood == 'angry', 'greyMood': this.$store.state.todayMood != 'angry'}"
+        @click="this.$store.commit('setMood', 'angry')" 
+        src="/mood/angry.png" />
+        <img 
+        :class="{'colorMood': this.$store.state.todayMood == 'depressed', 'greyMood': this.$store.state.todayMood != 'depressed'}"
+        @click="this.$store.commit('setMood', 'depressed')" 
+        src="/mood/depressed.png" />
+        <img 
+        :class="{'colorMood': this.$store.state.todayMood == 'sad', 'greyMood': this.$store.state.todayMood != 'sad'}"
+        @click="this.$store.commit('setMood', 'sad')" 
+        src="/mood/sad.png" />
+        <img
+        :class="{'colorMood': this.$store.state.todayMood == 'happy', 'greyMood': this.$store.state.todayMood != 'happy'}" 
+        @click="this.$store.commit('setMood', 'happy')" 
+        src="/mood/happy.png" />
       </div>
     </div>
     <div>
@@ -53,8 +67,12 @@ export default {
   display: flex;
   justify-content: space-around;
 }
-img {
-  width: 67px;
+.colorMood {
+  width: 4.25rem;
+}
+.greyMood {
+  width: 4.25rem;
+  filter: grayscale(100%);
 }
 .write-block {
   width: calc(100% - 32px);
