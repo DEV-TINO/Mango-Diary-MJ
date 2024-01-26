@@ -51,6 +51,10 @@ const store = createStore({
     },
     setMood(state, mood) {
       state.todayMood = mood;
+    },
+    submitDiary(state) {
+      state.todayMood = '';
+      state.imageUrl = '';
     }
   }
 })

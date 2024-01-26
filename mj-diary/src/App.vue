@@ -4,7 +4,7 @@
       Prev
     </router-link>
     <img src="/mood/happiness.png" class="logo" />
-    <router-link class="header-button-right" v-if="$route.path == `/write/${this.$store.state.writeDate}`" to="/main">
+    <router-link @click="this.$store.commit('submitDiary')" class="header-button-right" v-if="$route.path == `/write/${this.$store.state.writeDate}`" to="/main">
       Submit
     </router-link>
   </div>
