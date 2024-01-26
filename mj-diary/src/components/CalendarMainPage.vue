@@ -74,9 +74,7 @@ export default {
 }
 .calendar {
   width: calc(100% - 24px);
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 12px;
+  padding: 12px;
   background-color: rgb(255, 255, 152);
 }
 .week-block {
@@ -102,9 +100,10 @@ export default {
 .day-block {
   width: 42px;
   height: 50px;
-  margin-bottom: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 }
 .day {
