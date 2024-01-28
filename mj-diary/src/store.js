@@ -3,7 +3,6 @@ import { createStore } from 'vuex';
 const store = createStore({
   state() {
     return {
-      prev: "<",
       weeks: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
       year: 0,
       month: 0,

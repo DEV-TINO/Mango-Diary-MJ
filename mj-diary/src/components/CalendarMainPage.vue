@@ -1,7 +1,7 @@
 <template>
   <div class="select-date">
     <div class="select-month">
-    <div class="last-month" @click="reloadCalendar(-1)">{{ this.$store.state.prev }}</div>
+    <div class="last-month" @click="reloadCalendar(-1)">{{ prev }}</div>
     <div class="month-block">
       <div class="year">{{ this.$store.state.year }}</div>
       <div class="month">{{ this.$store.state.month + 1 }}</div>
@@ -30,6 +30,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      prev: "<",
+    }
+  },
   mounted() {
     this.$store.commit('loadCalendar');
   },
