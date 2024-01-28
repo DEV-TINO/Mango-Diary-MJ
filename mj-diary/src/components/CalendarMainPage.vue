@@ -40,8 +40,8 @@ export default {
     this.$store.commit('loadCalendar');
   },
   methods: {
-    reloadCalendar(v) {
-      this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + v, 1));
+    reloadCalendar(moveMonth) {
+      this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1));
       this.$store.commit('loadCalendar');
     },
     goWrite(year, month, day) {
