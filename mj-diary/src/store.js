@@ -25,7 +25,6 @@ const store = createStore({
   },
   mutations: {
     loadCalendar(state) {
-      state.today = new Date();
       state.days = [];
       state.date.year = state.today.getFullYear();
       state.date.month = state.today.getMonth();

@@ -36,6 +36,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.state.today = new Date();
     this.$store.commit('loadCalendar');
   },
   methods: {
