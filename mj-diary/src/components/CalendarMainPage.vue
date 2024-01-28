@@ -48,6 +48,7 @@ export default {
       this.$store.state.wirteMonth = String(month + 1).padStart(2, "0");
       this.$store.state.writeDay = String(day).padStart(2, "0");
       this.$store.state.writeDate = String(year) + this.$store.state.wirteMonth + this.$store.state.writeDay;
+      this.$store.commit('setShowButton');
       this.$router.push(`/write/${this.$store.state.writeDate}`)
     }
   }

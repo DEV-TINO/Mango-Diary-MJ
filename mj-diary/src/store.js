@@ -21,6 +21,7 @@ const store = createStore({
       writeDay: '',
       writeDate: '',
       todayMood: '',
+      showNavButton: false
     }
   },
   mutations: {
@@ -52,10 +53,16 @@ const store = createStore({
     },
     setMood(state, mood) {
       state.todayMood = mood;
-    }, 
-    submitDiary(state) {
-      state.todayMood = '';
-      state.imageUrl = '';
+    },
+    setShowButton(state) {
+      state.showNavButton = !state.showNavButton;
+    }
+  },
+  actions: {
+    submitDiary(context) {
+      context.state.todayMood = '';
+      context.state.imageUrl = '';
+      context.commit('setShowButton');
     }
   }
 })
