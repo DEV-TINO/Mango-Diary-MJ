@@ -3,8 +3,8 @@
     <div class="select-month">
     <div class="last-month" @click="reloadCalendar(-1)">{{ prev }}</div>
     <div class="month-block">
-      <div class="year">{{ this.$store.state.year }}</div>
-      <div class="month">{{ this.$store.state.month + 1 }}</div>
+      <div class="year">{{ this.$store.state.date.year }}</div>
+      <div class="month">{{ this.$store.state.date.month + 1 }}</div>
     </div>
     <div class="next-month" @click="reloadCalendar(1)">></div>
   </div>
@@ -19,13 +19,13 @@
       <tbody class="day-body">
         <tr class="day-row" v-for="index, i in this.$store.state.days" :key="i">
           <td class="day-block" v-for="day in index" :key="day">
-            <div class="day" @click="goWrite(this.$store.state.year, this.$store.state.month, day)">{{ day }}</div>
+            <div class="day" @click="goWrite(this.$store.state.date.year, this.$store.state.date.month, day)">{{ day }}</div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="write-button" @click="goWrite(this.$store.state.year, this.$store.state.month, this.$store.state.day)">write</div>
+  <div class="write-button" @click="goWrite(this.$store.state.date.year, this.$store.state.date.month, this.$store.state.date.day)">write</div>
 </template>
 
 <script>

@@ -27,7 +27,7 @@
     <div>
       <h3>오늘은 무슨 일이 있었나요?</h3>
       <div class="write-block">
-        <div class="today">{{ this.$store.state.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
+        <div class="today">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
         <textarea class="text-write"></textarea>
       </div>
     </div>

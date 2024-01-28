@@ -4,7 +4,7 @@
       Prev
     </router-link>
     <img src="/mood/happiness.png" class="logo" />
-    <router-link @click="this.$store.commit('submitDiary')" class="header-button-right" v-if="$route.path == `/write/${this.$store.state.writeDate}`" to="/main">
+    <router-link @click="this.$store.dispatch('submitDiary')" class="header-button-right" v-if="$route.path == `/write/${this.$store.state.writeDate}`" to="/main">
       Submit
     </router-link>
   </div>
@@ -19,7 +19,14 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  methods: {
+    goMainPage(path) {
+      if(path == `/write/${this.$store.state.writeDate}`) {
+
+      }
+    }
+  }
 }
 </script>
 
