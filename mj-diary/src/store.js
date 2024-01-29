@@ -21,6 +21,7 @@ const store = createStore({
       writeDay: '',
       writeDate: '',
       todayMood: '',
+      moodState: [false, false, false, false, false],
       showNavButton: false
     }
   },

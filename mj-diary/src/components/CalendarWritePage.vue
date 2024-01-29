@@ -3,25 +3,11 @@
     <div class="select-mood">
       <h3>오늘의 기분은?</h3>
       <div class="mood-list">
-        <img 
-        :class="{'colorMood': this.$store.state.todayMood == 'happiness', 'greyMood': this.$store.state.todayMood != 'happiness'}" 
-        @click="this.$store.commit('setMood', 'happiness')"
-        src="/mood/happiness.png" />
-        <img :class="{'colorMood': this.$store.state.todayMood == 'angry', 'greyMood': this.$store.state.todayMood != 'angry'}"
-        @click="this.$store.commit('setMood', 'angry')" 
-        src="/mood/angry.png" />
-        <img 
-        :class="{'colorMood': this.$store.state.todayMood == 'depressed', 'greyMood': this.$store.state.todayMood != 'depressed'}"
-        @click="this.$store.commit('setMood', 'depressed')" 
-        src="/mood/depressed.png" />
-        <img 
-        :class="{'colorMood': this.$store.state.todayMood == 'sad', 'greyMood': this.$store.state.todayMood != 'sad'}"
-        @click="this.$store.commit('setMood', 'sad')" 
-        src="/mood/sad.png" />
-        <img
-        :class="{'colorMood': this.$store.state.todayMood == 'happy', 'greyMood': this.$store.state.todayMood != 'happy'}" 
-        @click="this.$store.commit('setMood', 'happy')" 
-        src="/mood/happy.png" />
+        <img :class="setImageMood('happiness')" @click="this.$store.commit('setMood', 'happiness')" src="/mood/happiness.png" />
+        <img :class="setImageMood('angry')" @click="this.$store.commit('setMood', 'angry')" src="/mood/angry.png" />
+        <img :class="setImageMood('depressed')" @click="this.$store.commit('setMood', 'depressed')" src="/mood/depressed.png" />
+        <img :class="setImageMood('sad')" @click="this.$store.commit('setMood', 'sad')" src="/mood/sad.png" />
+        <img :class="setImageMood('happy')" @click="this.$store.commit('setMood', 'happy')" src="/mood/happy.png" />
       </div>
     </div>
     <div>
@@ -50,6 +36,9 @@ export default {
     uploadImage(event) {
       const file = event.target.files;
       this.$store.commit('setImageUrl', URL.createObjectURL(file[0]));
+    },
+    setImageMood(mood) {
+      return this.$store.state.todayMood == mood ? 'colorMood' : 'greyMood'
     }
   }
 }
