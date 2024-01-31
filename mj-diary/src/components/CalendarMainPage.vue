@@ -1,44 +1,55 @@
 <template>
   <div class="select-date">
     <div class="select-month">
-    <div class="last-month">{{ this.$store.state.prev }}</div>
+    <div class="last-month" @click="reloadCalendar(-1)">{{ prev }}</div>
     <div class="month-block">
-      <div class="year">2024</div>
-      <div class="month">01</div>
+      <div class="year">{{ this.$store.state.date.year }}</div>
+      <div class="month">{{ this.$store.state.date.month + 1 }}</div>
     </div>
-    <div class="next-month">></div>
+    <div class="next-month" @click="reloadCalendar(1)">></div>
   </div>
   </div>
   <div class="calendar-block">
     <table class="calendar">
       <thead class="week-block">
-        <tr class="week" v-for="week, index in weeks" :key="index">
+        <tr class="week" v-for="week, index in this.$store.state.weeks" :key="index">
           <th>{{ week }}</th>
         </tr>
       </thead>
-      <tbody class="date-body">
-        <tr class="date-row" v-for="index, i in dates" :key="i">
-          <td class="date-block" v-for="date, secIndex in index" :key="secIndex">
-            <router-link class="date" to="/write/1">{{ date }}</router-link>
+      <tbody class="day-body">
+        <tr class="day-row" v-for="index, i in this.$store.state.days" :key="i">
+          <td class="day-block" v-for="day in index" :key="day">
+            <div class="day" @click="goWrite(this.$store.state.date.year, this.$store.state.date.month, day)">{{ day }}</div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <router-link class="write-button" to="/write/1">write</router-link>
+  <div class="write-button" @click="goWrite(this.$store.state.date.year, this.$store.state.date.month, this.$store.state.date.day)">write</div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      weeks: ['MON',	'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
-      dates: [[1, 2, 3, 4, 5, 6, 7],
-              [8, 9, 10, 11, 12, 13, 14],
-              [15, 16, 17, 18, 19, 20, 21],
-              [22, 23, 24, 25, 26, 27, 28],
-              [29, 30, 31, '', '', '', '']],
-      
+      prev: "<",
+    }
+  },
+  mounted() {
+    this.$store.state.today = new Date();
+    this.$store.commit('loadCalendar');
+  },
+  methods: {
+    reloadCalendar(moveMonth) {
+      this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1));
+      this.$store.commit('loadCalendar');
+    },
+    goWrite(year, month, day) {
+      this.$store.state.wirteMonth = String(month + 1).padStart(2, "0");
+      this.$store.state.writeDay = String(day).padStart(2, "0");
+      this.$store.state.writeDate = String(year) + this.$store.state.wirteMonth + this.$store.state.writeDay;
+      this.$store.commit('setShowButton');
+      this.$router.push(`/write/${this.$store.state.writeDate}`)
     }
   }
 }
@@ -46,12 +57,18 @@ export default {
 
 <style>
 .select-month {
-  margin-top: 8px;
-  margin-bottom: 16px;
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+.last-month {
+  cursor: pointer;
+}
+.next-month {
+  cursor: pointer;
 }
 .month-block {
   display: flex;
@@ -64,9 +81,7 @@ export default {
 }
 .calendar {
   width: calc(100% - 24px);
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 12px;
+  padding: 12px;
   background-color: rgb(255, 255, 152);
 }
 .week-block {
@@ -81,23 +96,24 @@ export default {
   display: flex;
   justify-content: center;
 }
-.date-row {
+.day-row {
   color: black;
   display: flex;
   justify-content: space-around;
 }
-.date-body {
+.day-body {
   width: 100%;
 }
-.date-block {
+.day-block {
   width: 42px;
-  height: 72px;
-  margin-bottom: 16px;
+  height: 50px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 }
-.date {
+.day {
   text-decoration-line: none;
   color: black
 }
@@ -115,7 +131,7 @@ export default {
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 104px;
+  bottom: 7.5rem;
   right: 32px;
 }
 </style>
