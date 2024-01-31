@@ -115,7 +115,8 @@ export default {
   width: 100%;
   height: 150px;
   overflow: hidden;
-  border: 1px solid black;
+  border: 1px solid grey;
+  border-radius: 1rem;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

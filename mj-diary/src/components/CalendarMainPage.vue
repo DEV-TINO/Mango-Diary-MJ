@@ -119,6 +119,7 @@ export default {
 .week {
   width: 42px;
   background-color: rgb(255, 226, 64);
+  font-size: 1rem;
   display: flex;
   justify-content: center;
 }
@@ -155,7 +156,8 @@ export default {
 }
 .day {
   text-decoration-line: none;
-  color: black
+  color: black;
+  font-size: 1.25rem;
 }
 .today {
   width: 40px;
@@ -164,6 +166,8 @@ export default {
   color: black;
   background-color: white;
   border-radius: 50%;
+  font-size: 1.25rem;
+  box-shadow: 0px 3px 10px rgb(177, 158, 52);
   display: flex;
   justify-content: center;
   align-items: center;
