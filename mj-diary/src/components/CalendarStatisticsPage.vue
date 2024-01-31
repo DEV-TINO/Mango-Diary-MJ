@@ -1,8 +1,8 @@
 <template>
   <div class="select-month">
     <div class="month-block">
-      <div class="year">2024</div>
-      <div class="month">01</div>
+      <div class="year">{{ this.$store.state.date.year }}</div>
+      <div class="month">{{ this.$store.state.date.month_ENG }}</div>
     </div>
   </div>
   <div class="rank-top">
@@ -38,7 +38,14 @@
 
 <script>
 export default {
-  
+  mounted() {
+    this.$store.state.today = new Date();
+    this.$store.commit('loadCalendar');
+
+    if(this.$route.path == '/statistics') {
+      this.$store.state.showNavButton = false;
+    }
+  }
 }
 </script>
 
