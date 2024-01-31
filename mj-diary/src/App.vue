@@ -27,7 +27,7 @@ export default {
 .header {
   width: 100%;
   background-color: white;
-  padding-top: 8px;
+  padding-top: 12px;
   padding-bottom: 16px;
   display: flex;
   flex-direction: row;
@@ -55,7 +55,7 @@ export default {
   text-decoration-line: none;
 }
 .logo {
-  width: 80px;
+  width: 4.25rem;
   margin: auto;
 }
 .footer {
@@ -89,6 +89,7 @@ export default {
   margin-top: 60px;
   margin: auto;
   position: relative;
+  font-family: 'Cafe24Oneprettynight';
 }
 body {
   margin: 0 8px 0 8px
