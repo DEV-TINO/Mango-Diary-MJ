@@ -50,6 +50,7 @@ export default {
   padding-right: 16px;
 }
 .title {
+  margin-top: 1rem;
   margin-bottom: 1rem;
   font-size: 1.15rem;
   font-weight: bold;
@@ -57,7 +58,7 @@ export default {
   display: inline-block;
 }
 .select-mood {
-  margin-bottom: 32px;
+  margin-bottom: 1rem;
 }
 .mood-list {
   display: flex;

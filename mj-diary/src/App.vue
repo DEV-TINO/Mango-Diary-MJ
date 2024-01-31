@@ -28,7 +28,7 @@ export default {
   width: 100%;
   background-color: white;
   padding-top: 1.5rem;
-  padding-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
