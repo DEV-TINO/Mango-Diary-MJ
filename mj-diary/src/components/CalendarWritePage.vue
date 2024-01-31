@@ -13,7 +13,7 @@
     <div>
       <h3>오늘은 무슨 일이 있었나요?</h3>
       <div class="write-block">
-        <div class="today">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
+        <div class="today-block">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
         <textarea class="text-write"></textarea>
       </div>
     </div>
@@ -38,7 +38,7 @@ export default {
       this.$store.commit('setImageUrl', URL.createObjectURL(file[0]));
     },
     setImageMood(mood) {
-      return this.$store.state.todayMood == mood ? 'colorMood' : 'greyMood'
+      return this.$store.state.todayMood == mood ? 'color-mood' : 'grey-mood'
     }
   }
 }
@@ -56,10 +56,10 @@ export default {
   display: flex;
   justify-content: space-around;
 }
-.colorMood {
+.color-mood {
   width: 4.25rem;
 }
-.greyMood {
+.grey-mood {
   width: 4.25rem;
   filter: grayscale(100%);
 }
@@ -80,7 +80,7 @@ export default {
   border: none;
   resize: none;
 }
-.today {
+.today-block {
   margin: 0;
   margin-bottom: 16px;
 }
