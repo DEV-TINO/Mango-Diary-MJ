@@ -1,5 +1,20 @@
 import { createStore } from 'vuex';
 
+const MONTH_MAP = {
+  1: 'Jan',
+  2: 'Feb',
+  3: 'Mar',
+  4: 'Apr',
+  5: 'May',
+  6: 'Jun',
+  7: 'Jul',
+  8: 'Aug',
+  9: 'Sep',
+  10: 'Oct',
+  11: 'Nov',
+  12: 'Dec'
+}
+
 const store = createStore({
   state() {
     return {
@@ -7,6 +22,7 @@ const store = createStore({
       date: {
         year: 0,
         month: 0,
+        month_ENG: '',
         day: 0,
       },
       today: '',
@@ -21,7 +37,6 @@ const store = createStore({
       writeDay: '',
       writeDate: '',
       todayMood: '',
-      moodState: [false, false, false, false, false],
       showNavButton: false
     }
   },
@@ -30,6 +45,7 @@ const store = createStore({
       state.days = [];
       state.date.year = state.today.getFullYear();
       state.date.month = state.today.getMonth();
+      state.date.month_ENG = `${MONTH_MAP[state.date.month + 1]}`;
       state.date.day = state.today.getDate();
       state.startDay = new Date(state.date.year, state.date.month, 1).getDay();
       state.endDay = new Date(state.date.year, state.date.month + 1, 0).getDate();

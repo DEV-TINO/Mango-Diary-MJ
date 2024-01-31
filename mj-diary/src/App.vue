@@ -27,7 +27,7 @@ export default {
 .header {
   width: 100%;
   background-color: white;
-  padding-top: 12px;
+  padding-top: 1.5rem;
   padding-bottom: 16px;
   display: flex;
   flex-direction: row;

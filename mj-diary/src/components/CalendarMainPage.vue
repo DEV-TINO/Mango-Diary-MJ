@@ -4,7 +4,7 @@
     <div class="last-month" @click="reloadCalendar(-1)">{{ prev }}</div>
     <div class="month-block">
       <div class="year">{{ this.$store.state.date.year }}</div>
-      <div class="month">{{ this.$store.state.date.month + 1 }}</div>
+      <div class="month">{{ this.$store.state.date.month_ENG }}</div>
     </div>
     <div class="next-month" @click="reloadCalendar(1)">></div>
   </div>
@@ -12,7 +12,7 @@
   <div class="calendar-block">
     <table class="calendar">
       <thead class="week-block">
-        <tr class="week" v-for="week, index in this.$store.state.weeks" :key="index">
+        <tr :class="weekStyle(week)" v-for="week, index in this.$store.state.weeks" :key="index">
           <th>{{ week }}</th>
         </tr>
       </thead>
@@ -58,6 +58,15 @@ export default {
       const date = today.getDate();
 
       return this.$store.state.date.year == year && this.$store.state.date.month == month && date == day ? 'today' : 'day';
+    },
+    weekStyle(week) {
+      if(week == 'SUN') {
+        return 'sun';
+      }else if(week == 'SAT'){
+        return 'sat'
+      }else{
+        return 'week';
+      }
     }
   }
 }
@@ -72,11 +81,19 @@ export default {
   justify-content: space-around;
   align-items: center;
 }
+.year {
+  font-size: 1.25rem;
+}
+.month {
+  font-size: 1.5rem;
+}
 .last-month {
   cursor: pointer;
+  font-size: 1.5rem;
 }
 .next-month {
   cursor: pointer;
+  font-size: 1.5rem;
 }
 .month-block {
   display: flex;
@@ -91,6 +108,7 @@ export default {
   width: calc(100% - 24px);
   padding: 12px;
   background-color: rgb(255, 255, 152);
+  border-radius: 1rem;
 }
 .week-block {
   width: 100%;	
@@ -104,10 +122,24 @@ export default {
   display: flex;
   justify-content: center;
 }
+.sun {
+  width: 42px;
+  background-color: rgb(255, 226, 64);
+  color: red;
+  display: flex;
+  justify-content: center;
+}
+.sat {
+  width: 42px;
+  background-color: rgb(255, 226, 64);
+  color: rgb(0, 110, 255);
+  display: flex;
+  justify-content: center;
+}
 .day-row {
   color: black;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .day-body {
   width: 100%;

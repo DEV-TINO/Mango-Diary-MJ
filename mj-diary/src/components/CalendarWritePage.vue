@@ -69,6 +69,7 @@ export default {
   padding: 16px;
   background-color: rgb(255, 255, 152);
   margin-bottom: 1em;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,9 +84,11 @@ export default {
 .today-block {
   margin: 0;
   margin-bottom: 16px;
+  font-size: 1.15rem;
 }
 .input-block {
   border-style: dotted;
+  border-radius: 1rem;
   cursor: pointer;
 }
 .input-image {
@@ -94,7 +97,8 @@ export default {
 .input-label {
   height: 100%;
   cursor: pointer;
-  padding: 50px;
+  padding: 2.75rem;
+  font-size: 1.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
