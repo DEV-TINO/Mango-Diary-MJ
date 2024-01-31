@@ -1,7 +1,7 @@
 <template>
   <div class="diary-block">
     <div class="select-mood">
-      <h3>오늘의 기분은?</h3>
+      <div class="title">오늘의 기분은?</div>
       <div class="mood-list">
         <img :class="setImageMood('happiness')" @click="this.$store.commit('setMood', 'happiness')" src="/mood/happiness.png" />
         <img :class="setImageMood('angry')" @click="this.$store.commit('setMood', 'angry')" src="/mood/angry.png" />
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div>
-      <h3>오늘은 무슨 일이 있었나요?</h3>
+      <div class="title">오늘은 무슨 일이 있었나요?</div>
       <div class="write-block">
         <div class="today-block">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
         <textarea class="text-write"></textarea>
@@ -48,6 +48,13 @@ export default {
 .diary-block {
   padding-left: 16px;
   padding-right: 16px;
+}
+.title {
+  margin-bottom: 1rem;
+  font-size: 1.15rem;
+  font-weight: bold;
+  background-color: rgb(255, 226, 64);
+  display: inline-block;
 }
 .select-mood {
   margin-bottom: 32px;

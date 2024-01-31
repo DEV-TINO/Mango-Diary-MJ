@@ -28,7 +28,7 @@ export default {
   width: 100%;
   background-color: white;
   padding-top: 1.5rem;
-  padding-bottom: 16px;
+  padding-bottom: 1.75rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -38,11 +38,12 @@ export default {
   color: black;
   float: left;
   width: 50px;
-  padding-left: 20px;
+  padding-left: 21px;
   cursor: pointer;
   margin-top: 10px;
   list-style-type: none;
   text-decoration-line: none;
+  font-size: 1.25rem;
 }
 .header-button-right {
   color: black;
@@ -50,9 +51,10 @@ export default {
   width: 50px;
   cursor: pointer;
   margin-top: 10px;
-  padding-right: 20px;
+  padding-right: 21px;
   list-style-type: none;
   text-decoration-line: none;
+  font-size: 1.25rem;
 }
 .logo {
   width: 4.25rem;

@@ -75,7 +75,7 @@ export default {
 <style>
 .select-month {
   margin-top: 0.75rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
