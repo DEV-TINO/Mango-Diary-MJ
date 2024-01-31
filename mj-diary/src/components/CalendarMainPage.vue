@@ -19,7 +19,7 @@
       <tbody class="day-body">
         <tr class="day-row" v-for="index, i in this.$store.state.days" :key="i">
           <td class="day-block" v-for="day in index" :key="day">
-            <div class="day" @click="goWrite(this.$store.state.date.year, this.$store.state.date.month, day)">{{ day }}</div>
+            <div :class="today(day)" @click="goWrite(this.$store.state.date.year, this.$store.state.date.month, day)">{{ day }}</div>
           </td>
         </tr>
       </tbody>
@@ -50,6 +50,14 @@ export default {
       this.$store.state.writeDate = String(year) + this.$store.state.wirteMonth + this.$store.state.writeDay;
       this.$store.commit('setShowButton');
       this.$router.push(`/write/${this.$store.state.writeDate}`)
+    },
+    today(day) {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+      const date = today.getDate();
+
+      return this.$store.state.date.year == year && this.$store.state.date.month == month && date == day ? 'today' : 'day';
     }
   }
 }
@@ -116,6 +124,17 @@ export default {
 .day {
   text-decoration-line: none;
   color: black
+}
+.today {
+  width: 40px;
+  height: 40px;
+  text-decoration-line: none;
+  color: black;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .write-button {
   width: 64px;
