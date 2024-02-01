@@ -70,9 +70,6 @@ const store = createStore({
     },
     setMood(state, mood) {
       state.todayMood = mood;
-    },
-    setShowButton(state) {
-      state.showNavButton = !state.showNavButton;
     }
   },
   actions: {

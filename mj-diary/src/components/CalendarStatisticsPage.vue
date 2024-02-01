@@ -41,10 +41,7 @@ export default {
   mounted() {
     this.$store.state.today = new Date();
     this.$store.commit('loadCalendar');
-
-    if(this.$route.path == '/statistics') {
-      this.$store.state.showNavButton = false;
-    }
+    this.$store.state.showNavButton = false;
   }
 }
 </script>

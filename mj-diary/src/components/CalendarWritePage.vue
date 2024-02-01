@@ -32,6 +32,9 @@
 
 <script>
 export default {
+  mounted() {
+    this.$store.state.showNavButton = true;
+  },
   methods: {
     uploadImage(event) {
       const file = event.target.files;
