@@ -19,6 +19,11 @@ const store = createStore({
   state() {
     return {
       weeks: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+      todayDate: {
+        year: 0,
+        month: 0,
+        day: 0
+      },
       date: {
         year: 0,
         month: 0,
@@ -64,6 +69,12 @@ const store = createStore({
       for(let i = 0; i < state.endDay + state.startDay; i += 7) {
         state.days.push(state.combinedDays.slice(i, i + 7));
       }
+    },
+    getTodayDate(state) {
+      const today = new Date();
+      state.todayDate.year = state.today.getFullYear();
+      state.todayDate.month = state.today.getMonth();
+      state.todayDate.day = state.today.getDate();
     },
     setImageUrl(state, url) {
       state.imageUrl = url;

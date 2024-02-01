@@ -25,7 +25,7 @@
       </tbody>
     </table>
   </div>
-  <div class="write-button" @click="goWrite(this.$store.state.date.year, this.$store.state.date.month, this.$store.state.date.day)">write</div>
+  <div class="write-button" @click="goWrite(this.$store.state.todayDate.year, this.$store.state.todayDate.month, this.$store.state.todayDate.day)">write</div>
 </template>
 
 <script>
@@ -38,6 +38,7 @@ export default {
   mounted() {
     this.$store.state.today = new Date();
     this.$store.commit('loadCalendar');
+    this.$store.commit('getTodayDate');
     this.$store.state.showNavButton = false;
   },
   methods: {
@@ -49,7 +50,11 @@ export default {
       this.$store.state.wirteMonth = String(month + 1).padStart(2, "0");
       this.$store.state.writeDay = String(day).padStart(2, "0");
       this.$store.state.writeDate = String(year) + this.$store.state.wirteMonth + this.$store.state.writeDay;
-      this.$router.push(`/write/${this.$store.state.writeDate}`)
+      
+      const todayDateStr = String(this.$store.state.todayDate.year) + String(this.$store.state.todayDate.month + 1).padStart(2, "0") + String(this.$store.state.todayDate.day).padStart(2, "0");
+
+      if(this.$store.state.writeDate <= todayDateStr)
+        this.$router.push(`/write/${this.$store.state.writeDate}`)
     },
     today(day) {
       const today = new Date();
