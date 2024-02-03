@@ -4,35 +4,35 @@ const data = {
       emoji_id: 0,
       emoji_color_type: "gray",
       emoji_name: "happiness",
-      emoji_subtitle: "행복해!",
+      emoji_subtitle: "행복",
       emoji_image: "/mood/happiness.png"
     },
 		{
       emoji_id: 1,
       emoji_color_type: "gray",
       emoji_name: "angry",
-      emoji_subtitle: "화나!",
+      emoji_subtitle: "화남",
       emoji_image: "/mood/angry.png"
     },
 		{
       emoji_id: 2,
       emoji_color_type: "gray",
       emoji_name: "depressed",
-      emoji_subtitle: "우울해..",
+      emoji_subtitle: "우울",
       emoji_image: "/mood/depressed.png"
     },
 		{
       emoji_id: 3,
       emoji_color_type: "gray",
       emoji_name: "happy",
-      emoji_subtitle: "너무 기뻐!!",
+      emoji_subtitle: "기쁨",
       emoji_image: "/mood/happy.png"
     },
 		{
       emoji_id: 4,
       emoji_color_type: "gray",
       emoji_name: "sad",
-      emoji_subtitle: "슬퍼..",
+      emoji_subtitle: "슬픔",
       emoji_image: "/mood/sad.png"
     }
 	],
