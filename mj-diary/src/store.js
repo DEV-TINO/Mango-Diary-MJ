@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import data from './data/data.js';
 
 const MONTH_MAP = {
   1: 'Jan',
@@ -42,7 +43,10 @@ const store = createStore({
       writeDay: '',
       writeDate: '',
       todayMood: '',
-      showNavButton: false
+      showNavButton: false,
+      emojiData: data.emoji,
+      postData: data.post,
+      statisticsData: data.statistics
     }
   },
   mutations: {
@@ -81,13 +85,15 @@ const store = createStore({
     },
     setMood(state, mood) {
       state.todayMood = mood;
+    },
+    resetOption(state) {
+      state.todayMood = '';
+      state.imageUrl = '';
     }
   },
   actions: {
     submitDiary(context) {
-      context.state.todayMood = '';
-      context.state.imageUrl = '';
-      context.commit('setShowButton');
+      context.commit('resetOption');
     }
   }
 })
