@@ -38,12 +38,12 @@ const data = {
 	],
 	post: [
 		{
-			post_id: 0,
-			post_year: "2019",
-			post_month: "01",
-			post_date: "03",
-			post_emoji_id: 0,
-			post_content: "내용",
+			post_id: "20240201",
+			post_year: "2024",
+			post_month: "02",
+			post_date: "01",
+			post_emoji_id: 3,
+			post_content: "안녕 친구들 ~ 안녕 친구들 ~",
 			post_upload_image: "https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png"
 		}
 	],
