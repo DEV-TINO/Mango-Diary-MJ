@@ -111,7 +111,7 @@ export default {
 }
 .calendar {
   width: calc(100% - 24px);
-  padding: 12px;
+  padding: 16px;
   background-color: rgb(255, 255, 152);
   border-radius: 1rem;
 }
@@ -119,7 +119,7 @@ export default {
   width: 100%;	
   margin-bottom: 16px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .week {
   width: 42px;
@@ -155,6 +155,7 @@ export default {
   height: 50px;
   padding-top: 8px;
   padding-bottom: 8px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
