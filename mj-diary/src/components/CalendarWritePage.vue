@@ -96,6 +96,7 @@ export default {
   font-size: 1.15rem;
 }
 .input-block {
+  border: 5px dotted rgb(255, 226, 64);
   border-style: dotted;
   border-radius: 1rem;
   cursor: pointer;
@@ -116,7 +117,7 @@ export default {
   width: 100%;
   height: 150px;
   overflow: hidden;
-  border: 1px solid grey;
+  border: 1px solid rgb(255, 226, 64);
   border-radius: 1rem;
   background-size: contain;
   background-repeat: no-repeat;
