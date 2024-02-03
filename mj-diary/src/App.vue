@@ -4,9 +4,9 @@
       Prev
     </router-link>
     <img :src="'/mood/' + this.$store.state.emojiData[0].emoji_name + '.png'" class="logo" />
-    <router-link @click="this.$store.dispatch('submitDiary')" class="header-button-right" v-if="this.$store.state.showNavButton" to="/main">
+    <div @click="handleSubmit()" class="header-button-right" v-if="this.$store.state.showNavButton" to="/main">
       Submit
-    </router-link>
+    </div>
   </div>
 
   <router-view />
@@ -20,6 +20,16 @@
 <script>
 export default {
   name: 'app',
+  methods: {
+    handleSubmit() {
+      if(this.$store.state.postContent == '' || this.$store.state.todayMood == '') {
+        alert('뭔가 빼먹지 않았나요? (기분이라던가, 내용이라던가..)');
+      } else {
+        this.$store.dispatch('submitDiary');
+        this.$router.push('/main');
+      }
+    }
+  }
 }
 </script>
 
@@ -29,6 +39,7 @@ export default {
   background-color: white;
   padding-top: 1.5rem;
   padding-bottom: 1.25rem;
+  margin-top: 0.25rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -40,7 +51,6 @@ export default {
   width: 50px;
   padding-left: 21px;
   cursor: pointer;
-  margin-top: 10px;
   list-style-type: none;
   text-decoration-line: none;
   font-size: 1.25rem;
@@ -50,11 +60,11 @@ export default {
   float: right;
   width: 50px;
   cursor: pointer;
-  margin-top: 10px;
   padding-right: 21px;
   list-style-type: none;
   text-decoration-line: none;
   font-size: 1.25rem;
+  margin: 0;
 }
 .logo {
   width: 4.25rem;
