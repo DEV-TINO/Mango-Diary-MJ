@@ -3,11 +3,9 @@
     <div class="select-mood">
       <div class="title">오늘의 기분은?</div>
       <div class="mood-list">
-        <img :class="setImageMood('happiness')" @click="this.$store.commit('setMood', 'happiness')" src="/mood/happiness.png" />
-        <img :class="setImageMood('angry')" @click="this.$store.commit('setMood', 'angry')" src="/mood/angry.png" />
-        <img :class="setImageMood('depressed')" @click="this.$store.commit('setMood', 'depressed')" src="/mood/depressed.png" />
-        <img :class="setImageMood('sad')" @click="this.$store.commit('setMood', 'sad')" src="/mood/sad.png" />
-        <img :class="setImageMood('happy')" @click="this.$store.commit('setMood', 'happy')" src="/mood/happy.png" />
+        <div v-for="emoji, index in this.$store.state.emojiData" :key="index">
+          <img :src="'/mood/' + emoji.emoji_name + '.png'" :class="setImageMood(emoji.emoji_name)" @click="this.$store.commit('setMood', emoji.emoji_name)" />
+        </div>
       </div>
     </div>
     <div>
@@ -42,7 +40,7 @@ export default {
     },
     setImageMood(mood) {
       return this.$store.state.todayMood == mood ? 'color-mood' : 'grey-mood'
-    }
+    },
   }
 }
 </script>

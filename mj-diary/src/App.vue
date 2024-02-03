@@ -3,7 +3,7 @@
     <router-link class="header-button-left" v-if="this.$store.state.showNavButton" @click="this.$store.commit('resetOption')" to="/main">
       Prev
     </router-link>
-    <img src="/mood/happiness.png" class="logo" />
+    <img :src="'/mood/' + this.$store.state.emojiData[0].emoji_name + '.png'" class="logo" />
     <router-link @click="this.$store.dispatch('submitDiary')" class="header-button-right" v-if="this.$store.state.showNavButton" to="/main">
       Submit
     </router-link>
