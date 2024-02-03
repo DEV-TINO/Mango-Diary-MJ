@@ -5,33 +5,16 @@
       <div class="month">{{ this.$store.state.date.month_ENG }}</div>
     </div>
   </div>
-  <div class="rank-top">
-    <img class="top-mood" src="/mood/happy.png" />
-    <div class="top-comment">
-      <p class="comment">기쁜 일이 많았나 봐요</p>
-      <h3 class="comment">기쁨 16개</h3>
-    </div>
-  </div>
-  <div class="ranking-block">
-    <div class="ranking">
-      <h3>2위</h3>
-      <img class="mood" src="/mood/happiness.png" />
-      <p>7개</p>
-    </div>
-    <div class="ranking">
-      <h3>3위</h3>
-      <img class="mood" src="/mood/depressed.png" />
-      <p>5개</p>
-    </div>
-    <div class="ranking">
-      <h3>4위</h3>
-      <img class="mood" src="/mood/sad.png" />
-      <p>2개</p>
-    </div>
-    <div class="ranking">
-      <h3>5위</h3>
-      <img class="mood" src="/mood/angry.png" />
-      <p>1개</p>
+  <div :class="'ranking-block'" v-for="statistics, index in this.$store.state.statisticsData" :key="index">
+    <div :class="setMoodBlock(statistics.statistic_rank)">
+      <img :class="setMoodRank(statistics.statistic_rank)" :src="'/mood/' + this.$store.state.emojiData[statistics.statistic_emoji_id].emoji_name + '.png'" />
+      <div :class="'top-comment'" v-if="statistics.statistic_rank == 1">
+        <h3 :class="'top-count'">{{ this.$store.state.emojiData[statistics.statistic_emoji_id].emoji_subtitle }} {{ statistics.statistic_count }}개</h3>
+        <p :class="'comment'">{{ statistics.statistic_comment }}</p>
+      </div>
+      <div :class="'ranking'" v-if="statistics.statistic_rank != 1">
+        <p :class="'count'">{{ this.$store.state.emojiData[statistics.statistic_emoji_id].emoji_subtitle }} {{ statistics.statistic_count }}개</p>
+      </div>
     </div>
   </div>
 </template>
@@ -42,42 +25,75 @@ export default {
     this.$store.state.today = new Date();
     this.$store.commit('loadCalendar');
     this.$store.state.showNavButton = false;
+  },
+  methods: {
+    setMoodBlock(rank) {
+      if(rank == 1) {
+        return 'rank-top';
+      } else {
+        return 'ranking-block';
+      }
+    },
+    setMoodRank(rank) {
+      if(rank == 1) {
+        return 'top-mood';
+      } else {
+        return 'mood';
+      }
+    }
   }
 }
 </script>
 
 <style>
 .rank-top {
-  margin-bottom: 40px;
+  width: 19rem;
+  padding: 1rem;
+  border-style: double;
+  border-width: 3px;
+  border-color: rgb(255, 226, 64);
+  border-radius: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 .top-mood {
-  width: 123px;
+  width: 6rem;
   margin-right: 16px;
 }
 .top-comment {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+}
+.top-count {
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+.count {
+  margin: 0;
+  font-size: 1.25rem;
 }
 .comment {
   margin: 0;
+  font-size: 1rem;
 }
 .ranking-block {
   width: 100%;
+  margin-bottom: 1rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
 }
 .ranking {
-  margin-bottom: 40px;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 .mood {
-  width: 88px;
+  width: 5rem;
+  margin-right: 2rem;
 }
 </style>
