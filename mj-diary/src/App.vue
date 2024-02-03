@@ -1,6 +1,6 @@
 <template>
   <div v-if="$route.path != `/`" class="header">
-    <router-link class="header-button-left" v-if="this.$store.state.showNavButton" to="/main">
+    <router-link class="header-button-left" v-if="this.$store.state.showNavButton" @click="this.$store.commit('resetOption')" to="/main">
       Prev
     </router-link>
     <img src="/mood/happiness.png" class="logo" />
