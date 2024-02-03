@@ -39,6 +39,8 @@ const store = createStore({
       emptyDays: 0,
       combinedDays: 0,
       imageUrl: '',
+      postContent: '',
+      writeYear: '',
       wirteMonth: '',
       writeDay: '',
       writeDate: '',
@@ -75,7 +77,6 @@ const store = createStore({
       }
     },
     getTodayDate(state) {
-      const today = new Date();
       state.todayDate.year = state.today.getFullYear();
       state.todayDate.month = state.today.getMonth();
       state.todayDate.day = state.today.getDate();
@@ -88,11 +89,28 @@ const store = createStore({
     },
     resetOption(state) {
       state.todayMood = '';
+      state.postContent = '';
       state.imageUrl = '';
+    },
+    setContent(state, content) {
+      state.postContent = content;
+    },
+    addPostingData(state, post) {
+      state.postData.push(post);
     }
   },
   actions: {
     submitDiary(context) {
+      const diaryData = {
+        "post_id": context.state.writeDate,
+        "post_year": context.state.writeYear,
+        "post_month": context.state.wirteMonth,
+        "post_date": context.state.writeDay,
+        "post_emoji_id": context.state.todayMood.emoji_id,
+        "post_content": context.state.postContent,
+        "post_upload_image": context.state.imageUrl
+      }
+
       context.commit('resetOption');
     }
   }
