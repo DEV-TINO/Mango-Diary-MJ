@@ -4,7 +4,7 @@
       <div class="title">오늘의 기분은?</div>
       <div class="mood-list">
         <div v-for="emoji, index in this.$store.state.emojiData" :key="index">
-          <img :src="'/mood/' + emoji.emoji_name + '.png'" :class="setImageMood(emoji.emoji_name)" @click="this.$store.commit('setMood', emoji.emoji_name)" />
+          <img :src="'/mood/' + emoji.emoji_name + '.png'" :class="setImageMood(emoji)" @click="this.$store.commit('setMood', emoji)" />
         </div>
       </div>
     </div>
@@ -12,7 +12,7 @@
       <div class="title">오늘은 무슨 일이 있었나요?</div>
       <div class="write-block">
         <div class="today-block">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
-        <textarea class="text-write"></textarea>
+        <textarea class="text-write" @input="this.$store.commit('setContent', $event.target.value)"></textarea>
       </div>
     </div>
 
