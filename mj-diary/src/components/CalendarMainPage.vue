@@ -18,8 +18,9 @@
       </thead>
       <tbody class="day-body">
         <tr class="day-row" v-for="index, i in this.$store.state.days" :key="i">
-          <td class="day-block" v-for="day in index" :key="day">
-            <div :class="today(day)" @click="goWrite(this.$store.state.date.year, this.$store.state.date.month, day)">{{ day }}</div>
+          <td class="day-block" v-for="day in index" :key="day" @click="goWrite(this.$store.state.date.year, this.$store.state.date.month, day)">
+            <img v-if="setDay(day) != false" :src="'/mood/' + setDay(day).emoji_name + '.png'" class="calendarEmoji" />
+            <div v-if="setDay(day) == false" :class="today(day)">{{ day }}</div>
           </td>
         </tr>
       </tbody>
@@ -47,9 +48,10 @@ export default {
       this.$store.commit('loadCalendar');
     },
     goWrite(year, month, day) {
+      this.$store.state.writeYear = String(year);
       this.$store.state.wirteMonth = String(month + 1).padStart(2, "0");
       this.$store.state.writeDay = String(day).padStart(2, "0");
-      this.$store.state.writeDate = String(year) + this.$store.state.wirteMonth + this.$store.state.writeDay;
+      this.$store.state.writeDate = this.$store.state.writeYear + this.$store.state.wirteMonth + this.$store.state.writeDay;
       
       const todayDateStr = String(this.$store.state.todayDate.year) + String(this.$store.state.todayDate.month + 1).padStart(2, "0") + String(this.$store.state.todayDate.day).padStart(2, "0");
 
@@ -72,6 +74,20 @@ export default {
       }else{
         return 'week';
       }
+    },
+    setDay(day) {
+      if(day != null) {
+        if(this.$store.state.postData[day - 1]?.post_id == this.getDiaryId(this.$store.state.date.year, this.$store.state.date.month, day)) {
+          return this.$store.state.emojiData[this.$store.state.postData[day - 1]?.post_emoji_id]
+        }else{
+          return false;
+        }
+      }else if(day == null){
+        return false;
+      }
+    },
+    getDiaryId(year, month, day) {
+      return String(year) + String(month + 1).padStart(2, "0") + String(day).padStart(2, "0");
     }
   }
 }
@@ -194,5 +210,8 @@ export default {
   position: fixed;
   bottom: 7.5rem;
   right: 32px;
+}
+.calendarEmoji {
+  width: 42px;
 }
 </style>
