@@ -69,9 +69,9 @@ export default {
     setWeekStyle(week) {
       if(week == 'SUN') {
         return 'sun';
-      }else if(week == 'SAT'){
+      } else if(week == 'SAT') {
         return 'sat'
-      }else{
+      } else {
         return 'week';
       }
     },
@@ -79,10 +79,10 @@ export default {
       if(day != null) {
         if(this.$store.state.postData[day - 1]?.post_id == this.getDiaryId(this.$store.state.date.year, this.$store.state.date.month, day)) {
           return this.$store.state.emojiData[this.$store.state.postData[day - 1]?.post_emoji_id]
-        }else{
+        } else {
           return false;
         }
-      }else if(day == null){
+      } else if(day == null) {
         return false;
       }
     },
