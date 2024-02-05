@@ -99,6 +99,12 @@ const store = createStore({
     },
     addPostingData(state, post) {
       state.postData.push(post);
+    },
+    setNavigationButton(state, bool) {
+      state.showNavButton = bool;
+    },
+    initToday(state){
+      state.today = new Date();
     }
   },
   actions: {

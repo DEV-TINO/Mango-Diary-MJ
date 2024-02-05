@@ -31,7 +31,7 @@
 <script>
 export default {
   mounted() {
-    this.$store.state.showNavButton = true;
+    this.$store.commit('setNavigationButton', true);
   },
   methods: {
     uploadImage(event) {

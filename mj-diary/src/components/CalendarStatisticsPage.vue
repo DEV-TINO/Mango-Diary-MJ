@@ -22,9 +22,9 @@
 <script>
 export default {
   mounted() {
-    this.$store.state.today = new Date();
+    this.$store.commit('initToday');
     this.$store.commit('loadCalendar');
-    this.$store.state.showNavButton = false;
+    this.$store.commit('setNavigationButton', false);
   },
   methods: {
     setMoodBlock(rank) {

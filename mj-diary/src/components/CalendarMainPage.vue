@@ -37,10 +37,10 @@ export default {
     }
   },
   mounted() {
-    this.$store.state.today = new Date();
+    this.$store.commit('initToday');
     this.$store.commit('loadCalendar');
     this.$store.commit('getTodayDate');
-    this.$store.state.showNavButton = false;
+    this.$store.commit('setNavigationButton', false);
   },
   methods: {
     reloadCalendar(moveMonth) {
