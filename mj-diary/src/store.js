@@ -16,10 +16,12 @@ const MONTH_MAP = {
   12: 'Dec'
 }
 
+const WEEKS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
 const store = createStore({
   state() {
     return {
-      weeks: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+      weeks: WEEKS,
       todayDate: {
         year: 0,
         month: 0,
