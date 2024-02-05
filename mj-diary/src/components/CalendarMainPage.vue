@@ -4,7 +4,7 @@
     <div class="last-month" @click="reloadCalendar(-1)">{{ prev }}</div>
     <div class="month-block">
       <div class="year">{{ this.$store.state.date.year }}</div>
-      <div class="month">{{ this.$store.state.date.month_ENG }}</div>
+      <div class="month">{{ this.$store.state.date.ENG_MONTH }}</div>
     </div>
     <div class="next-month" @click="reloadCalendar(1)">></div>
   </div>

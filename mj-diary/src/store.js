@@ -28,7 +28,7 @@ const store = createStore({
       date: {
         year: 0,
         month: 0,
-        month_ENG: '',
+        ENG_MONTH: '',
         day: 0,
       },
       today: '',

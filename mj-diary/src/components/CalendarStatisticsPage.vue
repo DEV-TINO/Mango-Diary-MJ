@@ -2,7 +2,7 @@
   <div class="select-month">
     <div class="month-block">
       <div class="year">{{ this.$store.state.date.year }}</div>
-      <div class="month">{{ this.$store.state.date.month_ENG }}</div>
+      <div class="month">{{ this.$store.state.date.ENG_MONTH }}</div>
     </div>
   </div>
   <div :class="'ranking-block'" v-for="statistics, index in this.$store.state.statisticsData" :key="index">
