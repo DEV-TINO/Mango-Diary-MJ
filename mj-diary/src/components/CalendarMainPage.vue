@@ -12,7 +12,7 @@
   <div class="calendar-block">
     <table class="calendar">
       <thead class="week-block">
-        <tr :class="weekStyle(week)" v-for="week, index in this.$store.state.weeks" :key="index">
+        <tr :class="setWeekStyle(week)" v-for="week, index in this.$store.state.weeks" :key="index">
           <th>{{ week }}</th>
         </tr>
       </thead>
@@ -66,7 +66,7 @@ export default {
 
       return this.$store.state.date.year == year && this.$store.state.date.month == month && date == day ? 'today' : 'day';
     },
-    weekStyle(week) {
+    setWeekStyle(week) {
       if(week == 'SUN') {
         return 'sun';
       }else if(week == 'SAT'){
