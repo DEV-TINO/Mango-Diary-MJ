@@ -18,7 +18,7 @@
       </thead>
       <tbody class="day-body">
         <tr class="day-row" v-for="index, i in this.$store.state.days" :key="i">
-          <td class="day-block" v-for="day in index" :key="day" @click="goWrite(this.$store.state.date.year, this.$store.state.date.month, day)">
+          <td class="day-block" v-for="day in index" :key="day" @click="handleClickWriteButton(this.$store.state.date.year, this.$store.state.date.month, day)">
             <img v-if="setDay(day) != false" :src="`/mood/` + setDay(day).emoji_name + `.png`" class="calendarEmoji" />
             <div v-if="setDay(day) == false" :class="today(day)">{{ day }}</div>
           </td>
@@ -26,7 +26,7 @@
       </tbody>
     </table>
   </div>
-  <div class="write-button" @click="goWrite(this.$store.state.todayDate.year, this.$store.state.todayDate.month, this.$store.state.todayDate.day)">write</div>
+  <div class="write-button" @click="handleClickWriteButton(this.$store.state.todayDate.year, this.$store.state.todayDate.month, this.$store.state.todayDate.day)">write</div>
 </template>
 
 <script>
@@ -47,7 +47,7 @@ export default {
       this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1));
       this.$store.commit('loadCalendar');
     },
-    goWrite(year, month, day) {
+    handleClickWriteButton(year, month, day) {
       this.$store.state.writeYear = String(year);
       this.$store.state.wirteMonth = String(month + 1).padStart(2, "0");
       this.$store.state.writeDay = String(day).padStart(2, "0");
