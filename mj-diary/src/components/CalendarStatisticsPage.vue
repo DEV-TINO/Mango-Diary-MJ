@@ -5,7 +5,7 @@
       <div class="month">{{ $store.state.date.ENG_MONTH }}</div>
     </div>
   </div>
-  <div v-if="sortedStatistics.length > 0" :class="'ranking-block'" v-for="(statistic, index) in sortedStatistics" :key="index">
+  <div v-if="count !== 0" :class="'ranking-block'" v-for="(statistic, index) in sortedStatistics" :key="index">
     <div :class="setMoodBlock(index)">
       <img :class="setMoodRank(index)" :src="`/mood/` + statistic.emoji + `.png`" />
       <div :class="'top-comment'" v-if="index === 0">
@@ -17,6 +17,12 @@
       </div>
     </div>
   </div>
+  <div v-if="count === 0" class="no-statistics-data-display">
+    <div class="no-statistics-block">
+      <h3>이번 달은 아직 감정을 등록하지 않았어요 !</h3>
+      <h4>이번 달엔 어떤 감정들이 가득할까요 ?</h4>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -24,15 +30,20 @@ export default {
   data() {
     return {
       rank: 0,
+      count: 0
     };
   },
   mounted() {
+    this.getStatisticsDisplay();
     this.$store.commit('initToday');
     this.$store.commit('loadCalendar');
     this.$store.commit('setNavigationButton', false);
     this.calculateRanking();
   },
   computed: {
+    setStatisticsDisplayComputed() {
+      return this.getStatisticsDisplay ? true : false;
+    },
     sortedStatistics() {
       return this.$store.state.statisticsData ? [...this.$store.state.statisticsData].sort((a, b) => b.count - a.count) : [];
     },
@@ -51,19 +62,41 @@ export default {
       }
     },
     displaySubtitle(statistic) {
-      for(let i = 0; i < 6; i++) {
-        if(this.$store.state.emojiData[i].name == statistic.emoji) {
+      for (let i = 0; i < 6; i++) {
+        if (this.$store.state.emojiData[i].name == statistic.emoji) {
           return this.$store.state.emojiData[i].subtitle;
-        } else {
-          continue;
         }
       }
     },
+    getStatisticsDisplay() {
+      for (let i = 0; i < 5; i++) {
+        if (this.$store.state.statisticsData[i]?.count !== 0) {
+          this.count++;
+        }
+      }
+    }
   },
 };
 </script>
 
 <style>
+.no-statistics-data-display {
+  height: 90%;
+  display: flex;
+  justify-content: center;
+}
+.no-statistics-block {
+  width: 20rem;
+  height: 10rem;
+  border-style: double;
+  border-width: 3px;
+  border-color: rgb(255, 226, 64);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .rank-top {
   width: 19rem;
   padding: 1rem;
