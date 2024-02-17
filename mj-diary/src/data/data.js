@@ -55,7 +55,7 @@ const data = {
 		},
 		{
 			emoji: 'happy',
-			count: 0,
+			count: 1,
 			comment: "즐겁고 흐뭇한 감정으로 인해 마음이 들뜨는 날이 많았나 봐요."
 		},
 		{
