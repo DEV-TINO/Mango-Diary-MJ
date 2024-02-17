@@ -48,7 +48,6 @@ export default {
     reloadCalendar(moveMonth) {
       this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1));
       this.$store.commit('loadCalendar');
-      this.loadPostData();
     },
     handleClickWriteButton(year, month, day) {
       this.$store.state.writeYear = String(year);
