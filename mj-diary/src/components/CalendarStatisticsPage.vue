@@ -35,6 +35,7 @@ export default {
   },
   mounted() {
     this.getStatisticsDisplay();
+    this.$store.commit('resetOption');
     this.$store.commit('initToday');
     this.$store.commit('loadCalendar');
     this.$store.commit('setNavigationButton', false);
