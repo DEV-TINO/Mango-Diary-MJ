@@ -19,8 +19,10 @@
       <tbody class="day-body">
         <tr class="day-row" v-for="index, i in this.$store.state.days" :key="i">
           <td class="day-block" v-for="day in index" :key="day" @click="handleClickWriteButton(this.$store.state.date.year, this.$store.state.date.month, day)">
-            <img v-if="setDay(day) != false" :src="`/mood/` + setDay(day).name + `.png`" class="calendarEmoji" />
-            <div v-if="setDay(day) == false" :class="today(day)">{{ day }}</div>
+            <div v-if="setDays(day) !== false" class="emoji-container">
+              <img :src="`/mood/` + setDays(day).name + `.png`" class="calendarEmoji" />
+            </div>
+            <div v-else :class="today(day)">{{ day }}</div>
           </td>
         </tr>
       </tbody>
@@ -46,6 +48,7 @@ export default {
     reloadCalendar(moveMonth) {
       this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1));
       this.$store.commit('loadCalendar');
+      this.loadPostData();
     },
     handleClickWriteButton(year, month, day) {
       this.$store.state.writeYear = String(year);
@@ -75,14 +78,23 @@ export default {
         return 'week';
       }
     },
-    setDay(day) {
-      if(day != null) {
-        if(this.$store.state.postData[day - 1]?.id == this.getDiaryId(this.$store.state.date.year, this.$store.state.date.month, day)) {
-          return this.$store.state.emojiData[this.$store.state.postData[day - 1]?.id]
+    setDays(day) {
+      if (day != null) {
+        const postId = this.getDiaryId(this.$store.state.date.year, this.$store.state.date.month, day);
+        const post = this.$store.state.postData.find(entry => entry.id === postId);
+
+        if (post) {
+          for(let i = 0; i < 6; i++) {
+        if(this.$store.state.emojiData[i].name == post.emoji) {
+          return this.$store.state.emojiData[i];
+        } else {
+          continue;
+        }
+      }
         } else {
           return false;
         }
-      } else if(day == null) {
+      } else {
         return false;
       }
     },
@@ -189,7 +201,7 @@ export default {
   background-color: white;
   border-radius: 50%;
   font-size: 1.25rem;
-  box-shadow: 0px 3px 10px rgb(177, 158, 52);
+  box-shadow: 0px 1px 5px 1px gray;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -200,7 +212,7 @@ export default {
   background-color: rgb(255, 248, 156);
   border-radius: 50%;
   border: none;
-  box-shadow: 0px 5px 15px gray;
+  box-shadow: 0px 1px 10px 1px gray;
   cursor: pointer;
   text-decoration-line: none;
   color: black;
