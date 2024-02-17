@@ -28,11 +28,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      selectedMood: null,
-    };
-  },
   mounted() {
     this.$store.commit('setNavigationButton', true);
     this.loadPostData();
@@ -43,13 +38,12 @@ export default {
       const post = this.$store.state.postData.find((entry) => entry.id === postId);
 
       if (post) {
-        this.selectedMood = post.emoji;
+        this.$store.state.selectedMood = post.emoji;
         this.$store.commit('setContent', post.content);
         this.$store.commit('setImageUrl', post.image);
       }
     },
     handleContentInput(event) {
-      console.log(event.target.value);
       this.$store.commit('setContent', event.target.value);
     },
     uploadImage(event) {
@@ -57,18 +51,18 @@ export default {
       this.$store.commit('setImageUrl', URL.createObjectURL(file[0]));
     },
     selectMood(emoji) {
-      this.selectedMood = emoji;
+      this.$store.state.selectedMood = emoji;
     },
     updateMood() {
-      this.$store.commit('setMood', this.selectedMood);
+      this.$store.commit('setMood', this.$store.state.selectedMood);
     },
   },
   computed: {
     emojiClass() {
       return (mood) => {
-        if (this.selectedMood === mood) {
+        if (this.$store.state.selectedMood === mood) {
           return 'color-mood';
-        } else if (!this.selectedMood && this.$store.state.todayMood === mood) {
+        } else if (!this.$store.state.selectedMood && this.$store.state.todayMood === mood) {
           return 'color-mood';
         } else {
           return 'grey-mood';
