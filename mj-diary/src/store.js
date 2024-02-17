@@ -47,6 +47,7 @@ const store = createStore({
       writeDay: '',
       writeDate: '',
       todayMood: '',
+      selectedMood: '',
       showNavButton: false,
       emojiData: data.emoji,
       postData: data.post,
@@ -90,6 +91,7 @@ const store = createStore({
       state.todayMood = mood.name;
     },
     resetOption(state) {
+      state.selectedMood = '';
       state.todayMood = '';
       state.postContent = '';
       state.imageUrl = '';
@@ -106,24 +108,30 @@ const store = createStore({
     initToday(state){
       state.today = new Date();
     },
-    setContent(state, content) {
-      state.postContent = content;
-    },
   },
   actions: {
     submitDiary(context) {
+      const postId = context.state.writeDate;
+      const postIndex = context.state.postData.findIndex((entry) => entry.id === postId);
+
       const diaryData = {
-        "id": context.state.writeDate,
+        "id": postId,
         "year": context.state.writeYear,
         "month": context.state.wirteMonth,
         "date": context.state.writeDay,
-        "emoji_id": context.state.todayMood.emoji_id,
+        "emoji": context.state.selectedMood,
         "content": context.state.postContent,
         "image": context.state.imageUrl
       }
 
+      if (postIndex !== -1) {
+        context.state.postData[postIndex] = diaryData;
+      } else {
+        context.commit('addPostingData', diaryData);
+      }
+
       context.commit('resetOption');
-    }
+    },
   }
 })
 
