@@ -50,7 +50,7 @@ const store = createStore({
       showNavButton: false,
       emojiData: data.emoji,
       postData: data.post,
-      statisticsData: data.statistics
+      statisticsData: data.statistic,
     }
   },
   mutations: {

@@ -1,19 +1,19 @@
 <template>
   <div class="select-month">
     <div class="month-block">
-      <div class="year">{{ this.$store.state.date.year }}</div>
-      <div class="month">{{ this.$store.state.date.ENG_MONTH }}</div>
+      <div class="year">{{ $store.state.date.year }}</div>
+      <div class="month">{{ $store.state.date.ENG_MONTH }}</div>
     </div>
   </div>
-  <div :class="'ranking-block'" v-for="statistics, index in this.$store.state.statisticsData" :key="index">
-    <div :class="setMoodBlock(statistics.statistic_rank)">
-      <img :class="setMoodRank(statistics.statistic_rank)" :src="`/mood/` + this.$store.state.emojiData[statistics.statistic_emoji_id]?.emoji_name + `.png`" />
-      <div :class="'top-comment'" v-if="statistics.statistic_rank == 1">
-        <h3 :class="'top-count'">{{ this.$store.state.emojiData[statistics.statistic_emoji_id]?.emoji_subtitle }} {{ statistics.statistic_count }}개</h3>
-        <p :class="'comment'">{{ statistics.statistic_comment }}</p>
+  <div v-if="sortedStatistics.length > 0" :class="'ranking-block'" v-for="(statistic, index) in sortedStatistics" :key="index">
+    <div :class="setMoodBlock(index)">
+      <img :class="setMoodRank(index)" :src="`/mood/` + statistic.emoji + `.png`" />
+      <div :class="'top-comment'" v-if="index === 0">
+        <h3 :class="'top-count'">{{ displaySubtitle(statistic) }} {{ statistic.count }}개</h3>
+        <p :class="'comment'">{{ statistic.comment }}</p>
       </div>
-      <div :class="'ranking'" v-if="statistics.statistic_rank != 1">
-        <p :class="'count'">{{ this.$store.state.emojiData[statistics.statistic_emoji_id]?.emoji_subtitle }} {{ statistics.statistic_count }}개</p>
+      <div :class="'ranking'" v-else>
+        <p :class="'count'">{{ displaySubtitle(statistic) }} {{ statistic.count }}개</p>
       </div>
     </div>
   </div>
@@ -21,28 +21,46 @@
 
 <script>
 export default {
+  data() {
+    return {
+      rank: 0,
+    };
+  },
   mounted() {
     this.$store.commit('initToday');
     this.$store.commit('loadCalendar');
     this.$store.commit('setNavigationButton', false);
+    this.calculateRanking();
+  },
+  computed: {
+    sortedStatistics() {
+      return this.$store.state.statisticsData ? [...this.$store.state.statisticsData].sort((a, b) => b.count - a.count) : [];
+    },
   },
   methods: {
-    setMoodBlock(rank) {
-      if(rank == 1) {
-        return 'rank-top';
-      } else {
-        return 'ranking-block';
+    setMoodBlock(index) {
+      return index === 0 ? 'rank-top' : 'ranking-block';
+    },
+    setMoodRank(index) {
+      return index === 0 ? 'top-mood' : 'mood';
+    },
+    calculateRanking() {
+      if (this.sortedStatistics.length > 0) {
+        const emojiToCalculateRankFor = this.sortedStatistics[0].emoji;
+        this.rank = this.sortedStatistics.findIndex(statistic => statistic.emoji === emojiToCalculateRankFor) + 1;
       }
     },
-    setMoodRank(rank) {
-      if(rank == 1) {
-        return 'top-mood';
-      } else {
-        return 'mood';
+    displaySubtitle(statistic) {
+      for(let i = 0; i < 6; i++) {
+        if(this.$store.state.emojiData[i].name == statistic.emoji) {
+          return this.$store.state.emojiData[i].subtitle;
+        } else {
+          continue;
+        }
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
