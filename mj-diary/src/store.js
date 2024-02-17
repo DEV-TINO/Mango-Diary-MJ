@@ -108,6 +108,11 @@ const store = createStore({
     initToday(state){
       state.today = new Date();
     },
+    updateStatisticsCount(state) {
+      state.statisticsData.forEach(statistic => {
+        statistic.count = state.postData.filter(post => post.emoji === statistic.emoji).length;
+      });
+    },
   },
   actions: {
     submitDiary(context) {
@@ -129,7 +134,8 @@ const store = createStore({
       } else {
         context.commit('addPostingData', diaryData);
       }
-
+      
+      context.commit('updateStatisticsCount');
       context.commit('resetOption');
     },
   }
