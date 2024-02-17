@@ -84,7 +84,7 @@ export default {
   border-radius: 50%;
   background-color: rgb(255, 248, 156);
   margin: auto;
-  box-shadow: 0px 5px 15px gray;
+  box-shadow: 0px 1px 10px 1px gray;
   text-decoration-line: none;
   color: black;
   display: flex;
