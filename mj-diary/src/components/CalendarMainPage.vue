@@ -19,7 +19,7 @@
       <tbody class="day-body">
         <tr class="day-row" v-for="index, i in this.$store.state.days" :key="i">
           <td class="day-block" v-for="day in index" :key="day" @click="handleClickWriteButton(this.$store.state.date.year, this.$store.state.date.month, day)">
-            <img v-if="setDay(day) != false" :src="`/mood/` + setDay(day).emoji_name + `.png`" class="calendarEmoji" />
+            <img v-if="setDay(day) != false" :src="`/mood/` + setDay(day).name + `.png`" class="calendarEmoji" />
             <div v-if="setDay(day) == false" :class="today(day)">{{ day }}</div>
           </td>
         </tr>
@@ -77,8 +77,8 @@ export default {
     },
     setDay(day) {
       if(day != null) {
-        if(this.$store.state.postData[day - 1]?.post_id == this.getDiaryId(this.$store.state.date.year, this.$store.state.date.month, day)) {
-          return this.$store.state.emojiData[this.$store.state.postData[day - 1]?.post_emoji_id]
+        if(this.$store.state.postData[day - 1]?.id == this.getDiaryId(this.$store.state.date.year, this.$store.state.date.month, day)) {
+          return this.$store.state.emojiData[this.$store.state.postData[day - 1]?.id]
         } else {
           return false;
         }
