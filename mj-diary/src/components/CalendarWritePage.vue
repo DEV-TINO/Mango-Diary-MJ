@@ -67,10 +67,12 @@ export default {
 }
 .color-mood {
   width: 4.25rem;
+  cursor: pointer;
 }
 .grey-mood {
   width: 4.25rem;
   filter: grayscale(100%);
+  cursor: pointer;
 }
 .write-block {
   width: calc(100% - 32px);
@@ -89,6 +91,9 @@ export default {
   height: 85%;
   border: none;
   resize: none;
+  font-family: 'Cafe24Oneprettynight';
+  font-size: 1rem;
+  outline: none;
 }
 .today-block {
   margin: 0;
