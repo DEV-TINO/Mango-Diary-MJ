@@ -87,7 +87,7 @@ export default {
   display: inline-block;
 }
 .select-mood {
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 }
 .mood-list {
   display: flex;
@@ -140,7 +140,7 @@ export default {
 .input-label {
   height: 100%;
   cursor: pointer;
-  padding: 2.75rem;
+  padding: 2.5rem;
   font-size: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -148,7 +148,7 @@ export default {
 }
 .upload-image {
   width: 100%;
-  height: 150px;
+  height: 8rem;
   overflow: hidden;
   border: 1px solid rgb(255, 226, 64);
   border-radius: 1rem;
