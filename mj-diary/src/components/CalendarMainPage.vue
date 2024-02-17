@@ -82,14 +82,9 @@ export default {
         const postId = this.getDiaryId(this.$store.state.date.year, this.$store.state.date.month, day);
         const post = this.$store.state.postData.find(entry => entry.id === postId);
 
-        if (post) {
-          for(let i = 0; i < 6; i++) {
-        if(this.$store.state.emojiData[i].name == post.emoji) {
-          return this.$store.state.emojiData[i];
-        } else {
-          continue;
-        }
-      }
+        if (post && post.emoji) {
+          const emoji = this.$store.state.emojiData.find(e => e.name === post.emoji);
+          return emoji || false;
         } else {
           return false;
         }
