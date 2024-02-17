@@ -7,13 +7,13 @@
   </div>
   <div :class="'ranking-block'" v-for="statistics, index in this.$store.state.statisticsData" :key="index">
     <div :class="setMoodBlock(statistics.statistic_rank)">
-      <img :class="setMoodRank(statistics.statistic_rank)" :src="`/mood/` + this.$store.state.emojiData[statistics.statistic_emoji_id].emoji_name + `.png`" />
+      <img :class="setMoodRank(statistics.statistic_rank)" :src="`/mood/` + this.$store.state.emojiData[statistics.statistic_emoji_id]?.emoji_name + `.png`" />
       <div :class="'top-comment'" v-if="statistics.statistic_rank == 1">
-        <h3 :class="'top-count'">{{ this.$store.state.emojiData[statistics.statistic_emoji_id].emoji_subtitle }} {{ statistics.statistic_count }}개</h3>
+        <h3 :class="'top-count'">{{ this.$store.state.emojiData[statistics.statistic_emoji_id]?.emoji_subtitle }} {{ statistics.statistic_count }}개</h3>
         <p :class="'comment'">{{ statistics.statistic_comment }}</p>
       </div>
       <div :class="'ranking'" v-if="statistics.statistic_rank != 1">
-        <p :class="'count'">{{ this.$store.state.emojiData[statistics.statistic_emoji_id].emoji_subtitle }} {{ statistics.statistic_count }}개</p>
+        <p :class="'count'">{{ this.$store.state.emojiData[statistics.statistic_emoji_id]?.emoji_subtitle }} {{ statistics.statistic_count }}개</p>
       </div>
     </div>
   </div>
