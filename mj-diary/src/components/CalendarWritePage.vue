@@ -4,7 +4,7 @@
       <div class="title">오늘의 기분은?</div>
       <div class="mood-list">
         <div v-for="emoji, index in this.$store.state.emojiData" :key="index">
-          <img :src="`/mood/` + emoji.name + `.png`" :class="setImageMood(emoji)" @click="this.$store.commit('setMood', emoji)" />
+          <img :src="`/mood/` + emoji.name + `.png`" :class="emojiClass(emoji.name)" @click="selectMood(emoji.name)" />
         </div>
       </div>
     </div>
@@ -12,10 +12,9 @@
       <div class="title">오늘은 무슨 일이 있었나요?</div>
       <div class="write-block">
         <div class="today-block">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
-        <textarea class="text-write" @input="this.$store.commit('setContent', $event.target.value)"></textarea>
+        <textarea class="text-write" @input="handleContentInput">{{ this.$store.state.postContent }}</textarea>
       </div>
     </div>
-
     <div v-if="this.$store.state.imageUrl == ''" class="input-block" @change="uploadImage($event)">
       <input accept="image/*" type="file" id="input-file" class="input-image" />
       <label for="input-file" class="input-label">
@@ -23,26 +22,61 @@
         <div>Upload Image</div>
       </label>
     </div>
-    <div v-else class="upload-image" :style="{ backgroundImage: `url(${this.$store.state.imageUrl})` }">
-    </div>
+    <div v-else class="upload-image" :style="{ backgroundImage: `url(${this.$store.state.imageUrl})` }"></div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      selectedMood: null,
+    };
+  },
   mounted() {
     this.$store.commit('setNavigationButton', true);
+    this.loadPostData();
   },
   methods: {
+    loadPostData() {
+      const postId = this.$store.state.writeDate;
+      const post = this.$store.state.postData.find((entry) => entry.id === postId);
+
+      if (post) {
+        this.selectedMood = post.emoji;
+        this.$store.commit('setContent', post.content);
+        this.$store.commit('setImageUrl', post.image);
+      }
+    },
+    handleContentInput(event) {
+      console.log(event.target.value);
+      this.$store.commit('setContent', event.target.value);
+    },
     uploadImage(event) {
       const file = event.target.files;
       this.$store.commit('setImageUrl', URL.createObjectURL(file[0]));
     },
-    setImageMood(mood) {
-      return this.$store.state.todayMood == mood ? 'color-mood' : 'grey-mood'
+    selectMood(emoji) {
+      this.selectedMood = emoji;
     },
-  }
-}
+    updateMood() {
+      this.$store.commit('setMood', this.selectedMood);
+    },
+  },
+  computed: {
+    emojiClass() {
+      return (mood) => {
+        if (this.selectedMood === mood) {
+          return 'color-mood';
+        } else if (!this.selectedMood && this.$store.state.todayMood === mood) {
+          return 'color-mood';
+        } else {
+          return 'grey-mood';
+        }
+      };
+    },
+  },
+};
 </script>
 
 <style>
