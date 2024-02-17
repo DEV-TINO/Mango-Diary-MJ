@@ -87,7 +87,7 @@ const store = createStore({
       state.imageUrl = url;
     },
     setMood(state, mood) {
-      state.todayMood = mood;
+      state.todayMood = mood.name;
     },
     resetOption(state) {
       state.todayMood = '';
@@ -105,18 +105,21 @@ const store = createStore({
     },
     initToday(state){
       state.today = new Date();
-    }
+    },
+    setContent(state, content) {
+      state.postContent = content;
+    },
   },
   actions: {
     submitDiary(context) {
       const diaryData = {
-        "post_id": context.state.writeDate,
-        "post_year": context.state.writeYear,
-        "post_month": context.state.wirteMonth,
-        "post_date": context.state.writeDay,
-        "post_emoji_id": context.state.todayMood.emoji_id,
-        "post_content": context.state.postContent,
-        "post_upload_image": context.state.imageUrl
+        "id": context.state.writeDate,
+        "year": context.state.writeYear,
+        "month": context.state.wirteMonth,
+        "date": context.state.writeDay,
+        "emoji_id": context.state.todayMood.emoji_id,
+        "content": context.state.postContent,
+        "image": context.state.imageUrl
       }
 
       context.commit('resetOption');
