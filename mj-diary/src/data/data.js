@@ -32,7 +32,7 @@ const data = {
 			year: "2024",
 			month: "02",
 			date: "01",
-			id: 3,
+			emoji: 3,
 			content: "안녕 친구들 ~ 안녕 친구들 ~",
 			image: "https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png"
 		}
