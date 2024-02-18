@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     setStatisticsDisplayComputed() {
-      return this.getStatisticsDisplay ? true : false
+      return this.getStatisticsDisplay() ? true : false
     },
     sortedStatistics() {
       return this.$store.state.statisticsData ? [...this.$store.state.statisticsData].sort((a, b) => b.count - a.count) : []

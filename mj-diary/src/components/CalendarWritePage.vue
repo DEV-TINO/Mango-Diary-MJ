@@ -12,7 +12,7 @@
       <div class="title">오늘은 무슨 일이 있었나요?</div>
       <div class="write-block">
         <div class="today-block">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
-        <textarea class="text-write" @input="handleContentInput">{{ this.$store.state.postContent }}</textarea>
+        <textarea class="text-write" @input="handleContentInput()">{{ this.$store.state.postContent }}</textarea>
       </div>
     </div>
     <div v-if="this.$store.state.imageUrl == ''" class="input-block" @change="uploadImage($event)">
