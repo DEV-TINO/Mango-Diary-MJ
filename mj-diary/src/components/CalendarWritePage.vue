@@ -38,7 +38,7 @@ export default {
       const post = this.$store.state.postData.find((entry) => entry.id === postId)
 
       if (post) {
-        this.$store.state.selectedMood = post.emoji
+        this.$store.commit('setSelectedMood', post.emoji)
         this.$store.commit('setContent', post.content)
         this.$store.commit('setImageUrl', post.image)
       }
@@ -51,7 +51,7 @@ export default {
       this.$store.commit('setImageUrl', URL.createObjectURL(file[0]))
     },
     selectMood(emoji) {
-      this.$store.state.selectedMood = emoji
+      this.$store.commit('setSelectedMood', emoji)
     },
     updateMood() {
       this.$store.commit('setMood', this.$store.state.selectedMood)

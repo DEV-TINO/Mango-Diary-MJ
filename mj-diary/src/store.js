@@ -90,6 +90,9 @@ const store = createStore({
     setMood(state, mood) {
       state.todayMood = mood.name
     },
+    setSelectedMood(state, mood) {
+      state.selectedMood = mood
+    },
     resetOption(state) {
       state.selectedMood = ''
       state.todayMood = ''
