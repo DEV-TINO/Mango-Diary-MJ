@@ -116,6 +116,12 @@ const store = createStore({
         statistic.count = state.postData.filter(post => post.emoji === statistic.emoji).length
       })
     },
+    setWriteDate(state, date) {
+      state.writeYear = String(date.y)
+      state.wirteMonth = String(date.m + 1).padStart(2, "0")
+      state.writeDay = String(date.d).padStart(2, "0")
+      state.writeDate = state.writeYear + state.wirteMonth + state.writeDay
+    }
   },
   actions: {
     submitDiary(context) {

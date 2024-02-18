@@ -50,12 +50,14 @@ export default {
       this.$store.commit('loadCalendar')
     },
     handleClickWriteButton(year, month, day) {
-      this.$store.state.writeYear = String(year)
-      this.$store.state.wirteMonth = String(month + 1).padStart(2, "0")
-      this.$store.state.writeDay = String(day).padStart(2, "0")
-      this.$store.state.writeDate = this.$store.state.writeYear + this.$store.state.wirteMonth + this.$store.state.writeDay
-      
-      const todayDateStr = String(this.$store.state.todayDate.year) + String(this.$store.state.todayDate.month + 1).padStart(2, "0") + String(this.$store.state.todayDate.day).padStart(2, "0")
+      const date = {
+        y: year,
+        m: month,
+        d: day
+      }
+
+      this.$store.commit('setWriteDate', date)
+      const todayDateStr = this.getDiaryId(this.$store.state.todayDate.year, this.$store.state.todayDate.month, this.$store.state.todayDate.day)
 
       if(this.$store.state.writeDate <= todayDateStr)
         this.$router.push(`/write/${this.$store.state.writeDate}`)
