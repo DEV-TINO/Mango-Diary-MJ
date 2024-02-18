@@ -20,7 +20,7 @@
         <tr class="day-row" v-for="index, i in this.$store.state.days" :key="i">
           <td class="day-block" v-for="day in index" :key="day" @click="handleClickWriteButton(this.$store.state.date.year, this.$store.state.date.month, day)">
             <div v-if="setDays(day) !== false" class="emoji-container">
-              <img :src="`/mood/` + setDays(day).name + `.png`" class="calendarEmoji" />
+              <img :src="`/mood/${setDays(day).name}.png`" class="calendarEmoji" />
             </div>
             <div v-else :class="today(day)">{{ day }}</div>
           </td>

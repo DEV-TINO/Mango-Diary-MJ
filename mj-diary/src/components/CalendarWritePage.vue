@@ -4,7 +4,7 @@
       <div class="title">오늘의 기분은?</div>
       <div class="mood-list">
         <div v-for="emoji, index in this.$store.state.emojiData" :key="index">
-          <img :src="`/mood/` + emoji.name + `.png`" :class="emojiClass(emoji.name)" @click="selectMood(emoji.name)" />
+          <img :src="`/mood/${emoji.name}.png`" :class="emojiClass(emoji.name)" @click="selectMood(emoji.name)" />
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@
   </div>
   <div v-if="count !== 0" :class="'ranking-block'" v-for="(statistic, index) in sortedStatistics" :key="index">
     <div :class="setMoodBlock(index)">
-      <img :class="setMoodRank(index)" :src="`/mood/` + statistic.emoji + `.png`" />
+      <img :class="setMoodRank(index)" :src="`/mood/${statistic.emoji}.png`" />
       <div :class="'top-comment'" v-if="index === 0">
         <h3 :class="'top-count'">{{ displaySubtitle(statistic) }} {{ statistic.count }}개</h3>
         <p :class="'comment'">{{ statistic.comment }}</p>
