@@ -56,68 +56,68 @@ const store = createStore({
   },
   mutations: {
     loadCalendar(state) {
-      state.days = [];
-      state.date.year = state.today.getFullYear();
-      state.date.month = state.today.getMonth();
-      state.date.ENG_MONTH = `${MONTH_MAP[state.date.month + 1]}`;
-      state.date.day = state.today.getDate();
-      state.startDay = new Date(state.date.year, state.date.month, 1).getDay();
-      state.endDay = new Date(state.date.year, state.date.month + 1, 0).getDate();
-      state.basicDays = Array.from({ length: state.endDay }, (v, i) => i + 1);
-      state.emptyDays = Array(state.startDay).fill(null);
-      state.combinedDays = [...state.emptyDays, ...state.basicDays];
+      state.days = []
+      state.date.year = state.today.getFullYear()
+      state.date.month = state.today.getMonth()
+      state.date.ENG_MONTH = `${MONTH_MAP[state.date.month + 1]}`
+      state.date.day = state.today.getDate()
+      state.startDay = new Date(state.date.year, state.date.month, 1).getDay()
+      state.endDay = new Date(state.date.year, state.date.month + 1, 0).getDate()
+      state.basicDays = Array.from({ length: state.endDay }, (v, i) => i + 1)
+      state.emptyDays = Array(state.startDay).fill(null)
+      state.combinedDays = [...state.emptyDays, ...state.basicDays]
 
       for(let i = 0; i < 35; i++) {
         if(state.combinedDays[i] != null) {
           continue;
         }else {
-          state.combinedDays.push(null);
+          state.combinedDays.push(null)
         }
       }
 
       for(let i = 0; i < state.endDay + state.startDay; i += 7) {
-        state.days.push(state.combinedDays.slice(i, i + 7));
+        state.days.push(state.combinedDays.slice(i, i + 7))
       }
     },
     getTodayDate(state) {
-      state.todayDate.year = state.today.getFullYear();
-      state.todayDate.month = state.today.getMonth();
-      state.todayDate.day = state.today.getDate();
+      state.todayDate.year = state.today.getFullYear()
+      state.todayDate.month = state.today.getMonth()
+      state.todayDate.day = state.today.getDate()
     },
     setImageUrl(state, url) {
-      state.imageUrl = url;
+      state.imageUrl = url
     },
     setMood(state, mood) {
-      state.todayMood = mood.name;
+      state.todayMood = mood.name
     },
     resetOption(state) {
-      state.selectedMood = '';
-      state.todayMood = '';
-      state.postContent = '';
-      state.imageUrl = '';
+      state.selectedMood = ''
+      state.todayMood = ''
+      state.postContent = ''
+      state.imageUrl = ''
     },
     setContent(state, content) {
-      state.postContent = content;
+      state.postContent = content
     },
     addPostingData(state, post) {
-      state.postData.push(post);
+      state.postData.push(post)
     },
     setNavigationButton(state, bool) {
-      state.showNavButton = bool;
+      state.showNavButton = bool
     },
     initToday(state){
-      state.today = new Date();
+      state.today = new Date()
     },
     updateStatisticsCount(state) {
       state.statisticsData.forEach(statistic => {
-        statistic.count = state.postData.filter(post => post.emoji === statistic.emoji).length;
-      });
+        statistic.count = state.postData.filter(post => post.emoji === statistic.emoji).length
+      })
     },
   },
   actions: {
     submitDiary(context) {
-      const postId = context.state.writeDate;
-      const postIndex = context.state.postData.findIndex((entry) => entry.id === postId);
+      const postId = context.state.writeDate
+      const postIndex = context.state.postData.findIndex((entry) => entry.id === postId)
 
       const diaryData = {
         "id": postId,
@@ -130,13 +130,13 @@ const store = createStore({
       }
 
       if (postIndex !== -1) {
-        context.state.postData[postIndex] = diaryData;
+        context.state.postData[postIndex] = diaryData
       } else {
-        context.commit('addPostingData', diaryData);
+        context.commit('addPostingData', diaryData)
       }
       
-      context.commit('updateStatisticsCount');
-      context.commit('resetOption');
+      context.commit('updateStatisticsCount')
+      context.commit('resetOption')
     },
   }
 })

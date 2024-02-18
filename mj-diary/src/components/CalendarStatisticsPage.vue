@@ -31,53 +31,53 @@ export default {
     return {
       rank: 0,
       count: 0
-    };
+    }
   },
   mounted() {
-    this.getStatisticsDisplay();
-    this.$store.commit('resetOption');
-    this.$store.commit('initToday');
-    this.$store.commit('loadCalendar');
-    this.$store.commit('setNavigationButton', false);
-    this.calculateRanking();
+    this.getStatisticsDisplay()
+    this.$store.commit('resetOption')
+    this.$store.commit('initToday')
+    this.$store.commit('loadCalendar')
+    this.$store.commit('setNavigationButton', false)
+    this.calculateRanking()
   },
   computed: {
     setStatisticsDisplayComputed() {
-      return this.getStatisticsDisplay ? true : false;
+      return this.getStatisticsDisplay ? true : false
     },
     sortedStatistics() {
-      return this.$store.state.statisticsData ? [...this.$store.state.statisticsData].sort((a, b) => b.count - a.count) : [];
+      return this.$store.state.statisticsData ? [...this.$store.state.statisticsData].sort((a, b) => b.count - a.count) : []
     },
   },
   methods: {
     setMoodBlock(index) {
-      return index === 0 ? 'rank-top' : 'ranking-block';
+      return index === 0 ? 'rank-top' : 'ranking-block'
     },
     setMoodRank(index) {
-      return index === 0 ? 'top-mood' : 'mood';
+      return index === 0 ? 'top-mood' : 'mood'
     },
     calculateRanking() {
       if (this.sortedStatistics.length > 0) {
-        const emojiToCalculateRankFor = this.sortedStatistics[0].emoji;
-        this.rank = this.sortedStatistics.findIndex(statistic => statistic.emoji === emojiToCalculateRankFor) + 1;
+        const emojiToCalculateRankFor = this.sortedStatistics[0].emoji
+        this.rank = this.sortedStatistics.findIndex(statistic => statistic.emoji === emojiToCalculateRankFor) + 1
       }
     },
     displaySubtitle(statistic) {
       for (let i = 0; i < 6; i++) {
         if (this.$store.state.emojiData[i].name == statistic.emoji) {
-          return this.$store.state.emojiData[i].subtitle;
+          return this.$store.state.emojiData[i].subtitle
         }
       }
     },
     getStatisticsDisplay() {
       for (let i = 0; i < 5; i++) {
         if (this.$store.state.statisticsData[i]?.count !== 0) {
-          this.count++;
+          this.count++
         }
       }
     }
   },
-};
+}
 </script>
 
 <style>

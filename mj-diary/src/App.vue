@@ -23,10 +23,10 @@ export default {
   methods: {
     handleSubmit() {
       if(this.$store.state.postContent == '' || this.$store.state.selectedMood == '') {
-        alert('뭔가 빼먹지 않았나요? (기분이라던가, 내용이라던가..)');
+        alert('뭔가 빼먹지 않았나요? (기분이라던가, 내용이라던가..)')
       } else {
-        this.$store.dispatch('submitDiary');
-        this.$router.push('/main');
+        this.$store.dispatch('submitDiary')
+        this.$router.push('/main')
       }
     }
   }

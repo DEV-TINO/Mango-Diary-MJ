@@ -39,34 +39,34 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit('initToday');
-    this.$store.commit('loadCalendar');
-    this.$store.commit('getTodayDate');
-    this.$store.commit('setNavigationButton', false);
+    this.$store.commit('initToday')
+    this.$store.commit('loadCalendar')
+    this.$store.commit('getTodayDate')
+    this.$store.commit('setNavigationButton', false)
   },
   methods: {
     reloadCalendar(moveMonth) {
-      this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1));
-      this.$store.commit('loadCalendar');
+      this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1))
+      this.$store.commit('loadCalendar')
     },
     handleClickWriteButton(year, month, day) {
-      this.$store.state.writeYear = String(year);
-      this.$store.state.wirteMonth = String(month + 1).padStart(2, "0");
-      this.$store.state.writeDay = String(day).padStart(2, "0");
-      this.$store.state.writeDate = this.$store.state.writeYear + this.$store.state.wirteMonth + this.$store.state.writeDay;
+      this.$store.state.writeYear = String(year)
+      this.$store.state.wirteMonth = String(month + 1).padStart(2, "0")
+      this.$store.state.writeDay = String(day).padStart(2, "0")
+      this.$store.state.writeDate = this.$store.state.writeYear + this.$store.state.wirteMonth + this.$store.state.writeDay
       
-      const todayDateStr = String(this.$store.state.todayDate.year) + String(this.$store.state.todayDate.month + 1).padStart(2, "0") + String(this.$store.state.todayDate.day).padStart(2, "0");
+      const todayDateStr = String(this.$store.state.todayDate.year) + String(this.$store.state.todayDate.month + 1).padStart(2, "0") + String(this.$store.state.todayDate.day).padStart(2, "0")
 
       if(this.$store.state.writeDate <= todayDateStr)
         this.$router.push(`/write/${this.$store.state.writeDate}`)
     },
     today(day) {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = today.getMonth();
-      const date = today.getDate();
+      const today = new Date()
+      const year = today.getFullYear()
+      const month = today.getMonth()
+      const date = today.getDate()
 
-      return this.$store.state.date.year == year && this.$store.state.date.month == month && date == day ? 'today' : 'day';
+      return this.$store.state.date.year == year && this.$store.state.date.month == month && date == day ? 'today' : 'day'
     },
     setWeekStyle(week) {
       const weekMappingObject = {
@@ -78,21 +78,21 @@ export default {
     },
     setDays(day) {
       if (day != null) {
-        const postId = this.getDiaryId(this.$store.state.date.year, this.$store.state.date.month, day);
-        const post = this.$store.state.postData.find(entry => entry.id === postId);
+        const postId = this.getDiaryId(this.$store.state.date.year, this.$store.state.date.month, day)
+        const post = this.$store.state.postData.find(entry => entry.id === postId)
 
         if (post && post.emoji) {
-          const emoji = this.$store.state.emojiData.find(e => e.name === post.emoji);
-          return emoji || false;
+          const emoji = this.$store.state.emojiData.find(e => e.name === post.emoji)
+          return emoji || false
         } else {
-          return false;
+          return false
         }
       } else {
-        return false;
+        return false
       }
     },
     getDiaryId(year, month, day) {
-      return String(year) + String(month + 1).padStart(2, "0") + String(day).padStart(2, "0");
+      return String(year) + String(month + 1).padStart(2, "0") + String(day).padStart(2, "0")
     }
   }
 }

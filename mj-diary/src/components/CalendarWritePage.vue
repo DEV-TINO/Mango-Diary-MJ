@@ -29,48 +29,48 @@
 <script>
 export default {
   mounted() {
-    this.$store.commit('setNavigationButton', true);
-    this.loadPostData();
+    this.$store.commit('setNavigationButton', true)
+    this.loadPostData()
   },
   methods: {
     loadPostData() {
-      const postId = this.$store.state.writeDate;
-      const post = this.$store.state.postData.find((entry) => entry.id === postId);
+      const postId = this.$store.state.writeDate
+      const post = this.$store.state.postData.find((entry) => entry.id === postId)
 
       if (post) {
-        this.$store.state.selectedMood = post.emoji;
-        this.$store.commit('setContent', post.content);
-        this.$store.commit('setImageUrl', post.image);
+        this.$store.state.selectedMood = post.emoji
+        this.$store.commit('setContent', post.content)
+        this.$store.commit('setImageUrl', post.image)
       }
     },
     handleContentInput(event) {
-      this.$store.commit('setContent', event.target.value);
+      this.$store.commit('setContent', event.target.value)
     },
     uploadImage(event) {
-      const file = event.target.files;
-      this.$store.commit('setImageUrl', URL.createObjectURL(file[0]));
+      const file = event.target.files
+      this.$store.commit('setImageUrl', URL.createObjectURL(file[0]))
     },
     selectMood(emoji) {
-      this.$store.state.selectedMood = emoji;
+      this.$store.state.selectedMood = emoji
     },
     updateMood() {
-      this.$store.commit('setMood', this.$store.state.selectedMood);
+      this.$store.commit('setMood', this.$store.state.selectedMood)
     },
   },
   computed: {
     emojiClass() {
       return (mood) => {
         if (this.$store.state.selectedMood === mood) {
-          return 'color-mood';
+          return 'color-mood'
         } else if (!this.$store.state.selectedMood && this.$store.state.todayMood === mood) {
-          return 'color-mood';
+          return 'color-mood'
         } else {
-          return 'grey-mood';
+          return 'grey-mood'
         }
-      };
+      }
     },
   },
-};
+}
 </script>
 
 <style>
