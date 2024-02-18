@@ -69,13 +69,12 @@ export default {
       return this.$store.state.date.year == year && this.$store.state.date.month == month && date == day ? 'today' : 'day';
     },
     setWeekStyle(week) {
-      if(week == 'SUN') {
-        return 'sun';
-      } else if(week == 'SAT') {
-        return 'sat'
-      } else {
-        return 'week';
+      const weekMappingObject = {
+        'SUN': 'sun',
+        'SAT': 'sat'
       }
+
+      return weekMappingObject?.[week] ?? 'week'
     },
     setDays(day) {
       if (day != null) {
@@ -134,7 +133,7 @@ export default {
 .calendar {
   width: calc(100% - 24px);
   padding: 16px;
-  background-color: rgb(255, 255, 152);
+  background-color: rgb(255 255 188);
   border-radius: 1rem;
 }
 .week-block {
