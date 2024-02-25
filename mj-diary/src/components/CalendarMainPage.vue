@@ -43,6 +43,7 @@ export default {
     this.$store.commit('loadCalendar')
     this.$store.commit('getTodayDate')
     this.$store.commit('setNavigationButton', false)
+    this.$store.commit('addPostData')
   },
   methods: {
     reloadCalendar(moveMonth) {
