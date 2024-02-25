@@ -18,6 +18,7 @@ export default {
   margin: 0;
   text-decoration-line: none;
   color: black;
+  font-size: 1.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;

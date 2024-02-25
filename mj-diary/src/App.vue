@@ -1,12 +1,12 @@
 <template>
   <div v-if="$route.path != `/`" class="header">
-    <router-link @click="this.$store.commit('setShowButton')" class="header-button-left" v-if="this.$store.state.showNavButton" to="/main">
+    <router-link class="header-button-left" v-if="this.$store.state.showNavButton" @click="this.$store.commit('resetOption')" to="/main">
       Prev
     </router-link>
-    <img src="/mood/happiness.png" class="logo" />
-    <router-link @click="this.$store.dispatch('submitDiary')" class="header-button-right" v-if="this.$store.state.showNavButton" to="/main">
+    <img :src="`/mood/${this.$store.state.emojiData[0].name}.png`" class="logo" />
+    <div @click="handleSubmit()" class="header-button-right" v-if="this.$store.state.showNavButton" to="/main">
       Submit
-    </router-link>
+    </div>
   </div>
 
   <router-view />
@@ -20,6 +20,16 @@
 <script>
 export default {
   name: 'app',
+  methods: {
+    async handleSubmit() {
+      if(this.$store.state.postContent == '' || this.$store.state.selectedMood == '') {
+        alert('뭔가 빼먹지 않았나요? (기분이라던가, 내용이라던가..)')
+      } else {
+        await this.$store.dispatch('submitDiary')
+        this.$router.push('/main')
+      }
+    }
+  }
 }
 </script>
 
@@ -27,8 +37,9 @@ export default {
 .header {
   width: 100%;
   background-color: white;
-  padding-top: 8px;
-  padding-bottom: 16px;
+  padding-top: 1.5rem;
+  padding-bottom: 1.25rem;
+  margin-top: 0.25rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -38,24 +49,25 @@ export default {
   color: black;
   float: left;
   width: 50px;
-  padding-left: 20px;
+  padding-left: 21px;
   cursor: pointer;
-  margin-top: 10px;
   list-style-type: none;
   text-decoration-line: none;
+  font-size: 1.25rem;
 }
 .header-button-right {
   color: black;
   float: right;
   width: 50px;
   cursor: pointer;
-  margin-top: 10px;
-  padding-right: 20px;
+  padding-right: 21px;
   list-style-type: none;
   text-decoration-line: none;
+  font-size: 1.25rem;
+  margin: 0;
 }
 .logo {
-  width: 80px;
+  width: 4.25rem;
   margin: auto;
 }
 .footer {
@@ -72,7 +84,7 @@ export default {
   border-radius: 50%;
   background-color: rgb(255, 248, 156);
   margin: auto;
-  box-shadow: 0px 5px 15px gray;
+  box-shadow: 0px 1px 10px 1px gray;
   text-decoration-line: none;
   color: black;
   display: flex;
@@ -89,6 +101,7 @@ export default {
   margin-top: 60px;
   margin: auto;
   position: relative;
+  font-family: 'Cafe24Oneprettynight';
 }
 body {
   margin: 0 8px 0 8px

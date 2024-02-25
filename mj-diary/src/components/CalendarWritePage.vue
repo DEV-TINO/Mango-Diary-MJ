@@ -1,23 +1,20 @@
 <template>
   <div class="diary-block">
     <div class="select-mood">
-      <h3>오늘의 기분은?</h3>
+      <div class="title">오늘의 기분은?</div>
       <div class="mood-list">
-        <img :class="setImageMood('happiness')" @click="this.$store.commit('setMood', 'happiness')" src="/mood/happiness.png" />
-        <img :class="setImageMood('angry')" @click="this.$store.commit('setMood', 'angry')" src="/mood/angry.png" />
-        <img :class="setImageMood('depressed')" @click="this.$store.commit('setMood', 'depressed')" src="/mood/depressed.png" />
-        <img :class="setImageMood('sad')" @click="this.$store.commit('setMood', 'sad')" src="/mood/sad.png" />
-        <img :class="setImageMood('happy')" @click="this.$store.commit('setMood', 'happy')" src="/mood/happy.png" />
+        <div v-for="emoji, index in this.$store.state.emojiData" :key="index">
+          <img :src="`/mood/${emoji.name}.png`" :class="emojiClass(emoji.name)" @click="selectMood(emoji.name)" />
+        </div>
       </div>
     </div>
     <div>
-      <h3>오늘은 무슨 일이 있었나요?</h3>
+      <div class="title">오늘은 무슨 일이 있었나요?</div>
       <div class="write-block">
-        <div class="today">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
-        <textarea class="text-write"></textarea>
+        <div class="today-block">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
+        <textarea class="text-write" @input="handleContentInput($event)">{{ this.$store.state.postContent }}</textarea>
       </div>
     </div>
-
     <div v-if="this.$store.state.imageUrl == ''" class="input-block" @change="uploadImage($event)">
       <input accept="image/*" type="file" id="input-file" class="input-image" />
       <label for="input-file" class="input-label">
@@ -25,22 +22,54 @@
         <div>Upload Image</div>
       </label>
     </div>
-    <div v-else class="upload-image" :style="{ backgroundImage: `url(${this.$store.state.imageUrl})` }">
-    </div>
+    <div v-else class="upload-image" :style="{ backgroundImage: `url(${this.$store.state.imageUrl})` }"></div>
   </div>
 </template>
 
 <script>
 export default {
+  mounted() {
+    this.$store.commit('setNavigationButton', true)
+    this.loadPostData()
+  },
   methods: {
-    uploadImage(event) {
-      const file = event.target.files;
-      this.$store.commit('setImageUrl', URL.createObjectURL(file[0]));
+    loadPostData() {
+      const postId = this.$store.state.writeDate
+      const post = this.$store.state.postData.find((entry) => entry.id === postId)
+
+      if (post) {
+        this.$store.commit('setSelectedMood', post.emoji)
+        this.$store.commit('setContent', post.content)
+        this.$store.commit('setImageUrl', post.image)
+      }
     },
-    setImageMood(mood) {
-      return this.$store.state.todayMood == mood ? 'colorMood' : 'greyMood'
-    }
-  }
+    handleContentInput(event) {
+      this.$store.commit('setContent', event.target.value)
+    },
+    uploadImage(event) {
+      const file = event.target.files
+      this.$store.commit('setImageUrl', URL.createObjectURL(file[0]))
+    },
+    selectMood(emoji) {
+      this.$store.commit('setSelectedMood', emoji)
+    },
+    updateMood() {
+      this.$store.commit('setMood', this.$store.state.selectedMood)
+    },
+  },
+  computed: {
+    emojiClass() {
+      return (mood) => {
+        if (this.$store.state.selectedMood === mood) {
+          return 'color-mood'
+        } else if (!this.$store.state.selectedMood && this.$store.state.todayMood === mood) {
+          return 'color-mood'
+        } else {
+          return 'grey-mood'
+        }
+      }
+    },
+  },
 }
 </script>
 
@@ -49,19 +78,29 @@ export default {
   padding-left: 16px;
   padding-right: 16px;
 }
+.title {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.15rem;
+  font-weight: bold;
+  background-color: rgb(255, 226, 64);
+  display: inline-block;
+}
 .select-mood {
-  margin-bottom: 32px;
+  margin-bottom: 0.25rem;
 }
 .mood-list {
   display: flex;
   justify-content: space-around;
 }
-.colorMood {
+.color-mood {
   width: 4.25rem;
+  cursor: pointer;
 }
-.greyMood {
+.grey-mood {
   width: 4.25rem;
   filter: grayscale(100%);
+  cursor: pointer;
 }
 .write-block {
   width: calc(100% - 32px);
@@ -69,6 +108,7 @@ export default {
   padding: 16px;
   background-color: rgb(255, 255, 152);
   margin-bottom: 1em;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,13 +119,19 @@ export default {
   height: 85%;
   border: none;
   resize: none;
+  font-family: 'Cafe24Oneprettynight';
+  font-size: 1rem;
+  outline: none;
 }
-.today {
+.today-block {
   margin: 0;
   margin-bottom: 16px;
+  font-size: 1.15rem;
 }
 .input-block {
+  border: 5px dotted rgb(255, 226, 64);
   border-style: dotted;
+  border-radius: 1rem;
   cursor: pointer;
 }
 .input-image {
@@ -94,16 +140,18 @@ export default {
 .input-label {
   height: 100%;
   cursor: pointer;
-  padding: 50px;
+  padding: 2.5rem;
+  font-size: 1.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .upload-image {
   width: 100%;
-  height: 150px;
+  height: 8rem;
   overflow: hidden;
-  border: 1px solid black;
+  border: 1px solid rgb(255, 226, 64);
+  border-radius: 1rem;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
