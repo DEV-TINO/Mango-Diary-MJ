@@ -4,7 +4,7 @@
       <div class="title">오늘의 기분은?</div>
       <div class="mood-list">
         <div v-for="emoji, index in this.$store.state.emojiData" :key="index">
-          <img :src="`/mood/${emoji.name}.png`" :class="emojiClass(emoji.name)" @click="selectMood(emoji.name)" />
+          <img :src="`${this.$store.state.host}${this.$store.state.emojiData[index].emoji_image}`" :class="emojiClass(emoji.emoji_name)" @click="selectMood(emoji)" />
         </div>
       </div>
     </div>
@@ -34,14 +34,9 @@ export default {
   },
   methods: {
     loadPostData() {
-      const postId = this.$store.state.writeDate
-      const post = this.$store.state.postData.find((entry) => entry.id === postId)
-
-      if (post) {
-        this.$store.commit('setSelectedMood', post.emoji)
-        this.$store.commit('setContent', post.content)
-        this.$store.commit('setImageUrl', post.image)
-      }
+      this.$store.commit('setSelectedMood', post.emoji)
+      this.$store.commit('setContent', post.content)
+      this.$store.commit('setImageUrl', post.image)
     },
     handleContentInput(event) {
       this.$store.commit('setContent', event.target.value)
