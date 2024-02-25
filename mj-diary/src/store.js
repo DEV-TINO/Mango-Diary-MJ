@@ -1,5 +1,8 @@
+import axios from 'axios';
 import { createStore } from 'vuex';
-import data from './data/data.js';
+import post from './data/postData.js';
+import emoji from './data/emojiData.js';
+import statistics from './data/statisticsData.js'
 
 const MONTH_MAP = {
   1: 'Jan',
@@ -16,11 +19,14 @@ const MONTH_MAP = {
   12: 'Dec'
 }
 
-const WEEKS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+const WEEKS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+
+const HOST = 'http://18.117.80.209:3333'
 
 const store = createStore({
   state() {
     return {
+      host: HOST,
       weeks: WEEKS,
       todayDate: {
         year: 0,
@@ -48,10 +54,12 @@ const store = createStore({
       writeDate: '',
       todayMood: '',
       selectedMood: '',
+      selectedMoodId: '',
       showNavButton: false,
-      emojiData: data.emoji,
-      postData: data.post,
-      statisticsData: data.statistic,
+      emojiData: emoji,
+      postData: post,
+      statisticsData: statistics,
+      postType: 'MJ'
     }
   },
   mutations: {
@@ -91,7 +99,8 @@ const store = createStore({
       state.todayMood = mood.name
     },
     setSelectedMood(state, mood) {
-      state.selectedMood = mood
+      state.selectedMood = mood.emoji_name
+      state.selectedMoodId = mood.emoji_id
     },
     resetOption(state) {
       state.selectedMood = ''
@@ -102,7 +111,7 @@ const store = createStore({
     setContent(state, content) {
       state.postContent = content
     },
-    addPostingData(state, post) {
+    getPostData(state, post) {
       state.postData.push(post)
     },
     setNavigationButton(state, bool) {
@@ -121,29 +130,50 @@ const store = createStore({
       state.wirteMonth = String(date.m + 1).padStart(2, "0")
       state.writeDay = String(date.d).padStart(2, "0")
       state.writeDate = state.writeYear + state.wirteMonth + state.writeDay
-    }
+    },
+    async addPostData(state) {
+      const postDate = {
+        "post_month": "2",
+        "post_year": String(state.date.year),
+        "post_type": state.postType
+      }
+
+      const request = await axios.post(`${state.host}/post/all`, postDate)
+
+      for(let i=0; i < request.data.length; i++) {
+        const result = await axios.get(`${state.host}/post/search/${request.data[i].post_id}`)
+        state.postData.push(result.data)
+        console.log(state.postData)
+      }
+    },
+    async addEmojiData(state) {
+      const result = await axios.get(`${state.host}/emoji/all`)
+
+      for(let i = 0; i < 5; i++) {
+        state.emojiData.push(result.data[i])
+      }
+    },
   },
   actions: {
-    submitDiary(context) {
-      const postId = context.state.writeDate
-      const postIndex = context.state.postData.findIndex((entry) => entry.id === postId)
+    async submitDiary(context) {
+      // const postId = context.state.writeDate
+      // const postIndex = context.state.postData.findIndex((entry) => entry.id === postId)
 
       const diaryData = {
-        "id": postId,
-        "year": context.state.writeYear,
-        "month": context.state.wirteMonth,
-        "date": context.state.writeDay,
-        "emoji": context.state.selectedMood,
-        "content": context.state.postContent,
-        "image": context.state.imageUrl
+        "post_type": context.state.postType,
+        "post_year": context.state.writeYear,
+        "post_month": context.state.wirteMonth,
+        "post_date": context.state.writeDay,
+        "post_emoji_id": context.state.selectedMoodId,
+        "post_content": context.state.postContent,
+        "post_upload_image": context.state.imageUrl
       }
 
-      if (postIndex !== -1) {
-        context.state.postData[postIndex] = diaryData
-      } else {
-        context.commit('addPostingData', diaryData)
-      }
-      
+      const res = await axios.post(`${context.state.host}/post/create`, diaryData)
+
+      context.commit('getPostData', diaryData)
+      console.log(res)
+
       context.commit('updateStatisticsCount')
       context.commit('resetOption')
     },
