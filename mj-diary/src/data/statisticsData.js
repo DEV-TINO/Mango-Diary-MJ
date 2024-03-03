@@ -16,7 +16,7 @@ const statisticsData = [
 	},
 	{
 		emoji: 'happy',
-		count: 1,
+		count: 0,
 		comment: "즐겁고 흐뭇한 감정으로 인해 마음이 들뜨는 날이 많았나 봐요."
 	},
 	{
