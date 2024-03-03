@@ -127,13 +127,13 @@ const store = createStore({
     },
     setWriteDate(state, date) {
       state.writeYear = String(date.y)
-      state.wirteMonth = String(date.m + 1).padStart(2, "0")
-      state.writeDay = String(date.d).padStart(2, "0")
+      state.wirteMonth = String(date.m + 1)
+      state.writeDay = String(date.d)
       state.writeDate = state.writeYear + state.wirteMonth + state.writeDay
     },
     async addPostData(state) {
       const postDate = {
-        "post_month": "2",
+        "post_month": String(state.date.month + 1),
         "post_year": String(state.date.year),
         "post_type": state.postType
       }
@@ -143,22 +143,22 @@ const store = createStore({
       for(let i=0; i < request.data.length; i++) {
         const result = await axios.get(`${state.host}/post/search/${request.data[i].post_id}`)
         state.postData.push(result.data)
-        console.log(state.postData)
       }
+      console.log(state.postData)
     },
     async addEmojiData(state) {
       const result = await axios.get(`${state.host}/emoji/all`)
 
       for(let i = 0; i < 5; i++) {
-        state.emojiData.push(result.data[i])
+        if(result.data[i].emoji_type == 'MJ') {
+          state.emojiData.push(result.data[i])
+        }
       }
-    },
+      console.log(state.emojiData)
+    }
   },
   actions: {
     async submitDiary(context) {
-      // const postId = context.state.writeDate
-      // const postIndex = context.state.postData.findIndex((entry) => entry.id === postId)
-
       const diaryData = {
         "post_type": context.state.postType,
         "post_year": context.state.writeYear,
@@ -177,6 +177,17 @@ const store = createStore({
       context.commit('updateStatisticsCount')
       context.commit('resetOption')
     },
+    async findPostData(context) {
+      for(let i = 0; i < context.state.postData.length; i++) {
+        if(context.state.writeYear == context.state.postData[i].post_year && context.state.wirteMonth == context.state.postData[i].post_month && context.state.writeDay == context.state.postData[i].post_date) {
+          const result = await axios.get(`${context.state.host}/emoji/search/${context.state.postData[i].post_emoji_id}`)
+          
+          context.commit('setSelectedMood', result.data)
+          context.commit('setContent', context.state.postData[i].post_content)
+          context.commit('setImageUrl', context.state.postData[i].post_upload_image)
+        }
+      }
+    }
   }
 })
 
