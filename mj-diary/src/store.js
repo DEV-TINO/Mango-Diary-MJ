@@ -171,7 +171,7 @@ const store = createStore({
 
         if(post && post.post_emoji_id !== '') {
             const emoji = await axios.get(`${state.host}/emoji/search/${post.post_emoji_id}`)
-            state.emojiUrlList[day - 1] = emoji.data.emoji_image
+            state.emojiUrlList[day - 1] = emoji.data
         } else {
           state.emojiUrlList[day - 1] = false
         }
