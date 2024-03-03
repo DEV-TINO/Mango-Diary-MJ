@@ -30,23 +30,20 @@
 export default {
   mounted() {
     this.$store.commit('setNavigationButton', true)
-    this.loadPostData()
+    this.$store.dispatch('findPostData')
   },
   methods: {
-    loadPostData() {
-      this.$store.commit('setSelectedMood', post.emoji)
-      this.$store.commit('setContent', post.content)
-      this.$store.commit('setImageUrl', post.image)
-    },
     handleContentInput(event) {
       this.$store.commit('setContent', event.target.value)
     },
     uploadImage(event) {
       const file = event.target.files
       this.$store.commit('setImageUrl', URL.createObjectURL(file[0]))
+      console.log(this.$store.state.imageUrl)
     },
     selectMood(emoji) {
       this.$store.commit('setSelectedMood', emoji)
+      console.log(this.$store.state.selectedMoodId)
     },
     updateMood() {
       this.$store.commit('setMood', this.$store.state.selectedMood)
