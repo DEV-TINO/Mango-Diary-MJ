@@ -47,6 +47,7 @@ const store = createStore({
       emptyDays: 0,
       combinedDays: 0,
       imageUrl: '',
+      selectedFile: '',
       postContent: '',
       writeYear: '',
       wirteMonth: '',
@@ -92,8 +93,11 @@ const store = createStore({
       state.todayDate.month = state.today.getMonth()
       state.todayDate.day = state.today.getDate()
     },
-    setImageUrl(state, url) {
-      state.imageUrl = url
+    setImageUrl(state, file) {
+      state.imageUrl = file
+    },
+    setSelectedFile(state, file) {
+      state.selectedFile = file
     },
     setMood(state, mood) {
       state.todayMood = mood.name
@@ -166,10 +170,16 @@ const store = createStore({
         "post_date": context.state.writeDay,
         "post_emoji_id": context.state.selectedMoodId,
         "post_content": context.state.postContent,
-        "post_upload_image": context.state.imageUrl
+        "post_upload_image": context.state.selectedFile
       }
 
-      const res = await axios.post(`${context.state.host}/post/create`, diaryData)
+      const newForm = new FormData();
+      
+      for(let i = 0; i < Object.keys(diaryData).length; i++) {
+        newForm.append(Object.keys(diaryData)[i], diaryData[Object.keys(diaryData)[i]])
+      }
+
+      const res = await axios.post(`${context.state.host}/post/create`, newForm)
 
       context.commit('getPostData', diaryData)
       console.log(res)
@@ -181,10 +191,12 @@ const store = createStore({
       for(let i = 0; i < context.state.postData.length; i++) {
         if(context.state.writeYear == context.state.postData[i].post_year && context.state.wirteMonth == context.state.postData[i].post_month && context.state.writeDay == context.state.postData[i].post_date) {
           const result = await axios.get(`${context.state.host}/emoji/search/${context.state.postData[i].post_emoji_id}`)
-          
+
           context.commit('setSelectedMood', result.data)
           context.commit('setContent', context.state.postData[i].post_content)
-          context.commit('setImageUrl', context.state.postData[i].post_upload_image)
+
+          const url = `${context.state.host}${context.state.postData[i].post_upload_image}`
+          context.commit('setImageUrl', url)
         }
       }
     }
