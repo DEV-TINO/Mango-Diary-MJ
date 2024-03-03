@@ -135,6 +135,9 @@ const store = createStore({
       state.writeDay = String(date.d)
       state.writeDate = state.writeYear + state.wirteMonth + state.writeDay
     },
+    resetPostData(state) {
+      state.postData = []
+    },
     async addPostData(state) {
       const postDate = {
         "post_month": String(state.date.month + 1),
