@@ -39,6 +39,7 @@ export default {
     uploadImage(event) {
       const file = event.target.files
       this.$store.commit('setImageUrl', URL.createObjectURL(file[0]))
+      this.$store.commit('setSelectedFile', file[0])
     },
     selectMood(emoji) {
       this.$store.commit('setSelectedMood', emoji)
