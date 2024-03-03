@@ -50,7 +50,7 @@ const store = createStore({
       selectedFile: '',
       postContent: '',
       writeYear: '',
-      wirteMonth: '',
+      writeMonth: '',
       writeDay: '',
       writeDate: '',
       todayMood: '',
@@ -60,7 +60,8 @@ const store = createStore({
       emojiData: emoji,
       postData: post,
       statisticsData: statistics,
-      postType: 'MJ'
+      postType: 'MJ',
+      emojiUrlList: []
     }
   },
   mutations: {
@@ -131,12 +132,15 @@ const store = createStore({
     },
     setWriteDate(state, date) {
       state.writeYear = String(date.y)
-      state.wirteMonth = String(date.m + 1)
+      state.writeMonth = String(date.m + 1)
       state.writeDay = String(date.d)
-      state.writeDate = state.writeYear + state.wirteMonth + state.writeDay
+      state.writeDate = state.writeYear + state.writeMonth + state.writeDay
     },
     resetPostData(state) {
       state.postData = []
+    },
+    resetEmojiList(state) {
+      state.emojiUrlList = []
     },
     async addPostData(state) {
       const postDate = {
@@ -151,7 +155,6 @@ const store = createStore({
         const result = await axios.get(`${state.host}/post/search/${request.data[i].post_id}`)
         state.postData.push(result.data)
       }
-      console.log(state.postData)
     },
     async addEmojiData(state) {
       const result = await axios.get(`${state.host}/emoji/all`)
@@ -161,7 +164,20 @@ const store = createStore({
           state.emojiData.push(result.data[i])
         }
       }
-      console.log(state.emojiData)
+    },
+    async findEmojiData(state, day) {
+      if (day != null) {
+        const post = state.postData.find(entry => entry.post_date == String(day))
+
+        if(post && post.post_emoji_id !== '') {
+            const emoji = await axios.get(`${state.host}/emoji/search/${post.post_emoji_id}`)
+            state.emojiUrlList[day - 1] = emoji.data.emoji_image
+        } else {
+          state.emojiUrlList[day - 1] = false
+        }
+      } else {
+        state.emojiUrlList[day - 1] = false
+      }
     }
   },
   actions: {
@@ -169,7 +185,7 @@ const store = createStore({
       const diaryData = {
         "post_type": context.state.postType,
         "post_year": context.state.writeYear,
-        "post_month": context.state.wirteMonth,
+        "post_month": context.state.writeMonth,
         "post_date": context.state.writeDay,
         "post_emoji_id": context.state.selectedMoodId,
         "post_content": context.state.postContent,
@@ -185,14 +201,13 @@ const store = createStore({
       const res = await axios.post(`${context.state.host}/post/create`, newForm)
 
       context.commit('getPostData', diaryData)
-      console.log(res)
 
       context.commit('updateStatisticsCount')
       context.commit('resetOption')
     },
     async findPostData(context) {
       for(let i = 0; i < context.state.postData.length; i++) {
-        if(context.state.writeYear == context.state.postData[i].post_year && context.state.wirteMonth == context.state.postData[i].post_month && context.state.writeDay == context.state.postData[i].post_date) {
+        if(context.state.writeYear == context.state.postData[i].post_year && context.state.writeMonth == context.state.postData[i].post_month && context.state.writeDay == context.state.postData[i].post_date) {
           const result = await axios.get(`${context.state.host}/emoji/search/${context.state.postData[i].post_emoji_id}`)
 
           context.commit('setSelectedMood', result.data)
