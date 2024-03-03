@@ -11,7 +11,7 @@
     <div>
       <div class="title">오늘은 무슨 일이 있었나요?</div>
       <div class="write-block">
-        <div class="today-block">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
+        <div class="today-block">{{ this.$store.state.date.year }}년 {{ this.$store.state.writeMonth }}월 {{ this.$store.state.writeDay }}일</div>
         <textarea class="text-write" @input="handleContentInput($event)">{{ this.$store.state.postContent }}</textarea>
       </div>
     </div>
