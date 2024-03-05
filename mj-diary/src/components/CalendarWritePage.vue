@@ -43,7 +43,6 @@ export default {
     },
     selectMood(emoji) {
       this.$store.commit('setSelectedMood', emoji)
-      console.log(this.$store.state.selectedMoodId)
     },
     updateMood() {
       this.$store.commit('setMood', this.$store.state.selectedMood)
