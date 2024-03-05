@@ -10,9 +10,8 @@ export default {
   mounted() {
     this.$store.commit('initToday')
     this.$store.commit('loadCalendar')
-    this.$store.commit('addEmojiData')    
-    this.$store.commit('addPostData')
-  },
+    this.$store.commit('addEmojiData')
+  }
 }
 </script>
 

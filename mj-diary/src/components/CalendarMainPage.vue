@@ -43,14 +43,16 @@ export default {
     this.$store.commit('loadCalendar')
     this.$store.commit('getTodayDate')
     this.$store.commit('setNavigationButton', false)
+    this.$store.dispatch('addPostData')
+    console.log(this.$store.state.emojiUrlList)
   },
   methods: {
     reloadCalendar(moveMonth) {
+      this.$store.commit('resetPostData')
+      this.$store.commit('resetEmojiList')
       this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1))
       this.$store.commit('loadCalendar')
-      this.$store.commit('resetPostData')
-      this.$store.commit('addPostData')
-      this.$store.commit('resetEmojiList')
+      this.$store.dispatch('addPostData')
     },
     handleClickWriteButton(year, month, day) {
       const date = {
@@ -82,10 +84,13 @@ export default {
       return weekMappingObject?.[week] ?? 'week'
     },
     setDays(day) {
-      this.$store.commit('findEmojiData', day)
-
-      if(this.$store.state.emojiUrlList[day - 1] != false) {
-        return true
+      console.log('a')
+      if(day != null) {
+        if(this.$store.state.emojiUrlList[day - 1] == false) {
+          return false
+        } else {
+          return true
+        }
       } else {
         return false
       }

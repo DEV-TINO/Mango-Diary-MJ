@@ -137,24 +137,10 @@ const store = createStore({
       state.writeDate = state.writeYear + state.writeMonth + state.writeDay
     },
     resetPostData(state) {
-      state.postData = []
+      state.postData.splice(0)
     },
     resetEmojiList(state) {
-      state.emojiUrlList = []
-    },
-    async addPostData(state) {
-      const postDate = {
-        "post_month": String(state.date.month + 1),
-        "post_year": String(state.date.year),
-        "post_type": state.postType
-      }
-
-      const request = await axios.post(`${state.host}/post/all`, postDate)
-
-      for(let i=0; i < request.data.length; i++) {
-        const result = await axios.get(`${state.host}/post/search/${request.data[i].post_id}`)
-        state.postData.push(result.data)
-      }
+      state.emojiUrlList.splice(0)
     },
     async addEmojiData(state) {
       const result = await axios.get(`${state.host}/emoji/all`)
@@ -163,20 +149,6 @@ const store = createStore({
         if(result.data[i].emoji_type == 'MJ') {
           state.emojiData.push(result.data[i])
         }
-      }
-    },
-    async findEmojiData(state, day) {
-      if (day != null) {
-        const post = state.postData.find(entry => entry.post_date == String(day))
-
-        if(post && post.post_emoji_id !== '') {
-            const emoji = await axios.get(`${state.host}/emoji/search/${post.post_emoji_id}`)
-            state.emojiUrlList[day - 1] = emoji.data
-        } else {
-          state.emojiUrlList[day - 1] = false
-        }
-      } else {
-        state.emojiUrlList[day - 1] = false
       }
     }
   },
@@ -201,9 +173,12 @@ const store = createStore({
       const res = await axios.post(`${context.state.host}/post/create`, newForm)
 
       context.commit('getPostData', diaryData)
-
       context.commit('updateStatisticsCount')
       context.commit('resetOption')
+      context.commit('resetPostData')
+      context.commit('resetEmojiList')
+      context.commit('initToday')
+      context.commit('loadCalendar')
     },
     async findPostData(context) {
       for(let i = 0; i < context.state.postData.length; i++) {
@@ -215,6 +190,36 @@ const store = createStore({
 
           const url = `${context.state.host}${context.state.postData[i].post_upload_image}`
           context.commit('setImageUrl', url)
+        }
+      }
+    },
+    async addPostData(context) {
+      const postDate = {
+        "post_month": String(context.state.date.month + 1),
+        "post_year": String(context.state.date.year),
+        "post_type": context.state.postType
+      }
+
+      const request = await axios.post(`${context.state.host}/post/all`, postDate)
+
+      for(let i=0; i < request.data.length; i++) {
+        const result = await axios.get(`${context.state.host}/post/search/${request.data[i].post_id}`)
+        context.state.postData.push(result.data)
+      }
+
+      context.dispatch('findEmojiData')
+    },
+    async findEmojiData(context) {
+      console.log(context.state.endDay)
+      for(let i = 0; i < context.state.endDay; i++) {
+        const post = context.state.postData.find(entry => entry.post_year == String(context.state.date.year) && entry.post_month == String(context.state.date.month + 1) && entry.post_date == (i + 1).toString())
+        const emojiId = post?.post_emoji_id
+
+        if(post && emojiId) {
+          const emoji = await axios.get(`${context.state.host}/emoji/search/${post.post_emoji_id}`)
+          context.state.emojiUrlList.push(emoji.data)
+        } else {
+          context.state.emojiUrlList.push(false)
         }
       }
     }
