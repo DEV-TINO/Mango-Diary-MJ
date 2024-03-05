@@ -44,7 +44,6 @@ export default {
     this.$store.commit('getTodayDate')
     this.$store.commit('setNavigationButton', false)
     this.$store.dispatch('addPostData')
-    console.log(this.$store.state.emojiUrlList)
   },
   methods: {
     reloadCalendar(moveMonth) {
@@ -84,7 +83,6 @@ export default {
       return weekMappingObject?.[week] ?? 'week'
     },
     setDays(day) {
-      console.log('a')
       if(day != null) {
         if(this.$store.state.emojiUrlList[day - 1] == false) {
           return false

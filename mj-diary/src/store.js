@@ -210,7 +210,6 @@ const store = createStore({
       context.dispatch('findEmojiData')
     },
     async findEmojiData(context) {
-      console.log(context.state.endDay)
       for(let i = 0; i < context.state.endDay; i++) {
         const post = context.state.postData.find(entry => entry.post_year == String(context.state.date.year) && entry.post_month == String(context.state.date.month + 1) && entry.post_date == (i + 1).toString())
         const emojiId = post?.post_emoji_id
