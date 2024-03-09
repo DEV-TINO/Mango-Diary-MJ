@@ -150,6 +150,16 @@ const store = createStore({
           state.emojiData.push(result.data[i])
         }
       }
+    },
+    resetStatisticsData(state) {
+      state.statisticsData.splice(0)
+    },
+    getStatisticsCount(state) {
+      for(let i = 0; i < state.endDay; i++) {
+        if(state.emojiUrlList[i] != false) {
+          // const emojiCount = state.emojiUrlList.filter(element => )
+        }
+      }
     }
   },
   actions: {
@@ -201,7 +211,6 @@ const store = createStore({
       }
 
       const request = await axios.post(`${context.state.host}/post/all`, postDate)
-
       
       for(let i = 0; i < context.state.endDay; i++) {
         if(request.data[i]?.post_id) {
