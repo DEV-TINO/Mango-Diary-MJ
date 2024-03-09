@@ -1,12 +1,12 @@
 <template>
   <div class="select-date">
     <div class="select-month">
-      <div class="last-month">{{ prev }}</div>
+      <div class="last-month" @click="reloadStatistics(-1)">{{ prev }}</div>
       <div class="month-block">
         <div class="year">{{ this.$store.state.date.year }}</div>
         <div class="month">{{ this.$store.state.date.ENG_MONTH }}</div>
       </div>
-      <div class="next-month">></div>
+      <div class="next-month" @click="reloadStatistics(1)">></div>
     </div>
   </div>
   <div v-if="count !== 0" :class="'ranking-block'" v-for="(statistic, index) in sortedStatistics" :key="index">
@@ -39,22 +39,28 @@ export default {
     }
   },
   mounted() {
-    this.getStatisticsDisplay()
     this.$store.commit('resetOption')
     this.$store.commit('initToday')
     this.$store.commit('loadCalendar')
+    this.$store.dispatch('addPostData')
     this.$store.commit('setNavigationButton', false)
+    this.getStatisticsDisplay()
     this.calculateRanking()
   },
   computed: {
-    setStatisticsDisplayComputed() {
-      return this.getStatisticsDisplay() ? true : false
-    },
     sortedStatistics() {
       return this.$store.state.statisticsData ? [...this.$store.state.statisticsData].sort((a, b) => b.count - a.count) : []
     },
   },
   methods: {
+    reloadStatistics(moveMonth) {
+      this.count = 0;
+      this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1))
+      this.$store.commit('loadCalendar')
+      this.$store.dispatch('addPostData')
+      this.getStatisticsDisplay()
+      this.calculateRanking()
+    },
     setMoodBlock(index) {
       return index === 0 ? 'rank-top' : 'ranking-block'
     },
@@ -76,7 +82,7 @@ export default {
     },
     getStatisticsDisplay() {
       for (let i = 0; i < 5; i++) {
-        if (this.$store.state.statisticsData[i]?.count !== 0) {
+        if (this.$store.state.statisticsData[i]['count'] !== 0) {
           this.count++
         }
       }

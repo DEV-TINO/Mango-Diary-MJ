@@ -151,14 +151,10 @@ const store = createStore({
         }
       }
     },
-    resetStatisticsData(state) {
-      state.statisticsData.splice(0)
-    },
     getStatisticsCount(state) {
-      for(let i = 0; i < state.endDay; i++) {
-        if(state.emojiUrlList[i] != false) {
-          // const emojiCount = state.emojiUrlList.filter(element => )
-        }
+      for(let i = 0; i < state.statisticsData.length; i++) {
+        const emojiCount = state.emojiUrlList.filter(element => element?.emoji_name == state.statisticsData[i].emoji).length
+        state.statisticsData[i]['count'] = emojiCount
       }
     }
   },
@@ -240,6 +236,7 @@ const store = createStore({
           context.state.emojiUrlList[i] = false
         }
       }
+      context.commit('getStatisticsCount')
     }
   }
 })
