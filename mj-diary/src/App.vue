@@ -3,7 +3,7 @@
     <router-link class="header-button-left" v-if="this.$store.state.showNavButton" @click="handlePrevButton()" to="/main">
       Prev
     </router-link>
-    <img :src="`${this.$store.state.host}${this.$store.state.emojiData[3].emoji_image}`" class="logo" />
+    <img :src="`${this.$store.state.host}${this.$store.state.emojiData[this.$store.state.headerEmoji].emoji_image}`" class="logo" />
     <div @click="handleSubmit()" class="header-button-right" v-if="this.$store.state.showNavButton" to="/main">
       Submit
     </div>

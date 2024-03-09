@@ -20,14 +20,15 @@ const MONTH_MAP = {
 }
 
 const WEEKS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-
 const HOST = 'http://18.117.80.209:3333'
+const HEADEREMOJI = 3
 
 const store = createStore({
   state() {
     return {
       host: HOST,
       weeks: WEEKS,
+      headerEmoji: HEADEREMOJI,
       todayDate: {
         year: 0,
         month: 0,
