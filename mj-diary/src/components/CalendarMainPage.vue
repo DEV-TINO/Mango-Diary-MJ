@@ -94,7 +94,7 @@ export default {
       }
     },
     getDiaryId(year, month, day) {
-      return String(year) + String(month + 1) + String(day)
+      return `${String(year)}${String(month + 1)}${String(day)}`
     }
   }
 }
