@@ -47,8 +47,8 @@ export default {
   },
   methods: {
     reloadCalendar(moveMonth) {
-      this.$store.commit('resetPostData')
       this.$store.commit('resetEmojiList')
+      this.$store.commit('resetPostData')
       this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1))
       this.$store.commit('loadCalendar')
       this.$store.dispatch('addPostData')

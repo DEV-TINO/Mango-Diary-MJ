@@ -182,7 +182,7 @@ const store = createStore({
     },
     async findPostData(context) {
       for(let i = 0; i < context.state.postData.length; i++) {
-        if(context.state.writeYear == context.state.postData[i].post_year && context.state.writeMonth == context.state.postData[i].post_month && context.state.writeDay == context.state.postData[i].post_date) {
+        if(context.state.writeYear == context.state.postData[i]?.post_year && context.state.writeMonth == context.state.postData[i]?.post_month && context.state.writeDay == context.state.postData[i]?.post_date) {
           const result = await axios.get(`${context.state.host}/emoji/search/${context.state.postData[i].post_emoji_id}`)
 
           context.commit('setSelectedMood', result.data)
@@ -202,23 +202,34 @@ const store = createStore({
 
       const request = await axios.post(`${context.state.host}/post/all`, postDate)
 
-      for(let i=0; i < request.data.length; i++) {
-        const result = await axios.get(`${context.state.host}/post/search/${request.data[i].post_id}`)
-        context.state.postData.push(result.data)
+      
+      for(let i = 0; i < context.state.endDay; i++) {
+        if(request.data[i]?.post_id) {
+          const post = await axios.get(`${context.state.host}/post/search/${request.data[i].post_id}`)
+          const postDate = parseInt(post?.data.post_date, 10) - 1
+
+          if(post && postDate) {
+            context.state.postData[postDate] = post.data
+          } else {
+            context.state.postData[i] = false
+          }
+        }
       }
 
       context.dispatch('findEmojiData')
+      console.log(context.state.postData)
     },
     async findEmojiData(context) {
+      context.commit('resetEmojiList')
       for(let i = 0; i < context.state.endDay; i++) {
-        const post = context.state.postData.find(entry => entry.post_year == String(context.state.date.year) && entry.post_month == String(context.state.date.month + 1) && entry.post_date == (i + 1).toString())
+        const post = context.state.postData.find(entry => entry?.post_year == String(context.state.date.year) && entry?.post_month == String(context.state.date.month + 1) && entry?.post_date == (i + 1).toString())
         const emojiId = post?.post_emoji_id
 
         if(post && emojiId) {
           const emoji = await axios.get(`${context.state.host}/emoji/search/${post.post_emoji_id}`)
-          context.state.emojiUrlList.push(emoji.data)
+          context.state.emojiUrlList[i] = emoji.data
         } else {
-          context.state.emojiUrlList.push(false)
+          context.state.emojiUrlList[i] = false
         }
       }
     }
