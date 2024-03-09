@@ -226,7 +226,6 @@ const store = createStore({
       }
 
       context.dispatch('findEmojiData')
-      console.log(context.state.postData)
     },
     async findEmojiData(context) {
       context.commit('resetEmojiList')
