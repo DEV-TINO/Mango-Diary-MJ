@@ -133,10 +133,10 @@ const store = createStore({
       })
     },
     setWriteDate(state, date) {
-      state.writeYear = String(date.y)
-      state.writeMonth = String(date.m + 1)
-      state.writeDay = String(date.d)
-      state.writeDate = state.writeYear + state.writeMonth + state.writeDay
+      state.writeYear = String(date.year)
+      state.writeMonth = String(date.month + 1)
+      state.writeDay = String(date.day)
+      state.writeDate = state.writeYear + (state.writeMonth).padStart(2, "0") + (state.writeDay).padStart(2, "0")
     },
     resetPostData(state) {
       state.postData.splice(0)
@@ -174,8 +174,8 @@ const store = createStore({
 
       const newForm = new FormData();
       
-      for(let i = 0; i < Object.keys(diaryData).length; i++) {
-        newForm.append(Object.keys(diaryData)[i], diaryData[Object.keys(diaryData)[i]])
+      for (const [key, value] of Object.entries(diaryData)) {
+        newForm.append(key, value);
       }
 
       const res = await axios.post(`${context.state.host}/post/create`, newForm)
@@ -249,10 +249,8 @@ const store = createStore({
       for (let i = 0; i < 5; i++) {
         if (context.state.statisticsData[i]['count'] !== 0) {
           context.state.statisticsCount++
-          console.log(context.state.statisticsData[i]['count'])
         }
       }
-      console.log(context.state.statisticsCount)
     }
   }
 })

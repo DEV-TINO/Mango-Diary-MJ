@@ -55,16 +55,17 @@ export default {
     },
     handleClickWriteButton(year, month, day) {
       const date = {
-        y: year,
-        m: month,
-        d: day
+        year: year,
+        month: month,
+        day: day
       }
 
       this.$store.commit('setWriteDate', date)
       const todayDateStr = this.getDiaryId(this.$store.state.todayDate.year, this.$store.state.todayDate.month, this.$store.state.todayDate.day)
-
-      if(this.$store.state.writeDate <= todayDateStr)
+      
+      if(this.$store.state.writeDate <= todayDateStr) {
         this.$router.push(`/write/${this.$store.state.writeDate}`)
+      }
     },
     today(day) {
       const today = new Date()
@@ -94,7 +95,7 @@ export default {
       }
     },
     getDiaryId(year, month, day) {
-      return `${String(year)}${String(month + 1)}${String(day)}`
+      return `${String(year)}${String(month + 1).padStart(2, "0")}${String(day).padStart(2, "0")}`
     }
   }
 }
