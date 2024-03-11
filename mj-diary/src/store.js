@@ -199,9 +199,11 @@ const store = createStore({
     
           context.commit('setSelectedMood', result.data)
           context.commit('setContent', postData.post_content)
-    
-          const url = `${context.state.host}${postData.post_upload_image}`
-          context.commit('setImageUrl', url)
+
+          if(postData.post_upload_image != 'no image') {
+            const url = `${context.state.host}${postData.post_upload_image}`
+            context.commit('setImageUrl', url)
+          }
         }
       })
     },
