@@ -4,14 +4,14 @@
       <div class="title">오늘의 기분은?</div>
       <div class="mood-list">
         <div v-for="emoji, index in this.$store.state.emojiData" :key="index">
-          <img :src="`/mood/${emoji.name}.png`" :class="emojiClass(emoji.name)" @click="selectMood(emoji.name)" />
+          <img :src="`${this.$store.state.host}${this.$store.state.emojiData[index].emoji_image}`" :class="emojiClass(emoji.emoji_name)" @click="selectMood(emoji)" />
         </div>
       </div>
     </div>
     <div>
       <div class="title">오늘은 무슨 일이 있었나요?</div>
       <div class="write-block">
-        <div class="today-block">{{ this.$store.state.date.year }}년 {{ this.$store.state.wirteMonth }}월 {{ this.$store.state.writeDay }}일</div>
+        <div class="today-block">{{ this.$store.state.date.year }}년 {{ this.$store.state.writeMonth }}월 {{ this.$store.state.writeDay }}일</div>
         <textarea class="text-write" @input="handleContentInput($event)">{{ this.$store.state.postContent }}</textarea>
       </div>
     </div>
@@ -30,25 +30,16 @@
 export default {
   mounted() {
     this.$store.commit('setNavigationButton', true)
-    this.loadPostData()
+    this.$store.dispatch('findPostData')
   },
   methods: {
-    loadPostData() {
-      const postId = this.$store.state.writeDate
-      const post = this.$store.state.postData.find((entry) => entry.id === postId)
-
-      if (post) {
-        this.$store.commit('setSelectedMood', post.emoji)
-        this.$store.commit('setContent', post.content)
-        this.$store.commit('setImageUrl', post.image)
-      }
-    },
     handleContentInput(event) {
       this.$store.commit('setContent', event.target.value)
     },
     uploadImage(event) {
       const file = event.target.files
       this.$store.commit('setImageUrl', URL.createObjectURL(file[0]))
+      this.$store.commit('setSelectedFile', file[0])
     },
     selectMood(emoji) {
       this.$store.commit('setSelectedMood', emoji)

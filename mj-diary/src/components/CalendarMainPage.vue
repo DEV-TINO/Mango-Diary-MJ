@@ -19,10 +19,10 @@
       <tbody class="day-body">
         <tr class="day-row" v-for="index, i in this.$store.state.days" :key="i">
           <td class="day-block" v-for="day in index" :key="day" @click="handleClickWriteButton(this.$store.state.date.year, this.$store.state.date.month, day)">
-            <div v-if="setDays(day) !== false" class="emoji-container">
-              <img :src="`/mood/${setDays(day).name}.png`" class="calendarEmoji" />
+            <div v-if="setDays(day) == false" :class="today(day)">{{ day }}</div>
+            <div v-else class="emoji-container">
+              <img :src="`${this.$store.state.host}${this.$store.state.emojiUrlList[day - 1]?.emoji_image}`" class="calendarEmoji" />
             </div>
-            <div v-else :class="today(day)">{{ day }}</div>
           </td>
         </tr>
       </tbody>
@@ -35,7 +35,7 @@
 export default {
   data() {
     return {
-      prev: "<",
+      prev: "<"
     }
   },
   mounted() {
@@ -43,24 +43,29 @@ export default {
     this.$store.commit('loadCalendar')
     this.$store.commit('getTodayDate')
     this.$store.commit('setNavigationButton', false)
+    this.$store.dispatch('addPostData')
   },
   methods: {
     reloadCalendar(moveMonth) {
+      this.$store.commit('resetEmojiList')
+      this.$store.commit('resetPostData')
       this.$store.state.today = new Date(this.$store.state.today.setMonth(this.$store.state.today.getMonth() + moveMonth, 1))
       this.$store.commit('loadCalendar')
+      this.$store.dispatch('addPostData')
     },
     handleClickWriteButton(year, month, day) {
       const date = {
-        y: year,
-        m: month,
-        d: day
+        year: year,
+        month: month,
+        day: day
       }
 
       this.$store.commit('setWriteDate', date)
       const todayDateStr = this.getDiaryId(this.$store.state.todayDate.year, this.$store.state.todayDate.month, this.$store.state.todayDate.day)
-
-      if(this.$store.state.writeDate <= todayDateStr)
+      
+      if(this.$store.state.writeDate <= todayDateStr) {
         this.$router.push(`/write/${this.$store.state.writeDate}`)
+      }
     },
     today(day) {
       const today = new Date()
@@ -79,22 +84,18 @@ export default {
       return weekMappingObject?.[week] ?? 'week'
     },
     setDays(day) {
-      if (day != null) {
-        const postId = this.getDiaryId(this.$store.state.date.year, this.$store.state.date.month, day)
-        const post = this.$store.state.postData.find(entry => entry.id === postId)
-
-        if (post && post.emoji) {
-          const emoji = this.$store.state.emojiData.find(e => e.name === post.emoji)
-          return emoji || false
-        } else {
+      if(day != null) {
+        if(this.$store.state.emojiUrlList[day - 1] == false) {
           return false
+        } else {
+          return true
         }
       } else {
         return false
       }
     },
     getDiaryId(year, month, day) {
-      return String(year) + String(month + 1).padStart(2, "0") + String(day).padStart(2, "0")
+      return `${String(year)}${String(month + 1).padStart(2, "0")}${String(day).padStart(2, "0")}`
     }
   }
 }

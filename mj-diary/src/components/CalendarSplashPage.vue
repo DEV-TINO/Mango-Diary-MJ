@@ -7,7 +7,11 @@
 
 <script>
 export default {
-  
+  mounted() {
+    this.$store.commit('initToday')
+    this.$store.commit('loadCalendar')
+    this.$store.commit('addEmojiData')
+  }
 }
 </script>
 

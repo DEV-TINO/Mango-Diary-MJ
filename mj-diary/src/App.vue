@@ -1,9 +1,9 @@
 <template>
   <div v-if="$route.path != `/`" class="header">
-    <router-link class="header-button-left" v-if="this.$store.state.showNavButton" @click="this.$store.commit('resetOption')" to="/main">
+    <router-link class="header-button-left" v-if="this.$store.state.showNavButton" @click="handlePrevButton()" to="/main">
       Prev
     </router-link>
-    <img :src="`/mood/${this.$store.state.emojiData[0].name}.png`" class="logo" />
+    <img :src="`${this.$store.state.host}${this.$store.state.emojiData[this.$store.state.headerEmoji].emoji_image}`" class="logo" />
     <div @click="handleSubmit()" class="header-button-right" v-if="this.$store.state.showNavButton" to="/main">
       Submit
     </div>
@@ -28,6 +28,13 @@ export default {
         await this.$store.dispatch('submitDiary')
         this.$router.push('/main')
       }
+    },
+    handlePrevButton() {
+      this.$store.commit('resetOption')
+      this.$store.commit('resetPostData')
+      this.$store.commit('resetEmojiList')
+      this.$store.commit('initToday')
+      this.$store.commit('loadCalendar')
     }
   }
 }
